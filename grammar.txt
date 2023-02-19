@@ -1,0 +1,11 @@
+// rules from 40 to 46
+
+40. declare_stmt -> DECLARE id_list COLON data_type SEMICOL
+41. condition_stmt -> SWITCH BO ID BC START case_stmts default END
+42. case_stmts -> CASE value COLON statements BREAK SEMICOL case_stmt 
+42(a). case_stmt ->  CASE value COLON statements BREAK SEMICOL case_stmt | ε
+43. value -> NUM | TRUE | FALSE
+44. default -> DEFAULT COLON statements BREAK SEMICOL | ε
+45. iterative_stmt -> FOR BO ID IN range BC START statements END |
+                      WHILE BO boolean_expr BC START statements END
+46. range -> NUM RANGEOP NUM
