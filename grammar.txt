@@ -1,11 +1,20 @@
-// rules from 40 to 46
+program -> moduleDeclarations otherMoodules driverModule otherModules
+moduleDeclarations -> moduleDeclaration moduleDeclarations 
+moduleDeclarations -> ε
+moduleDeclaration -> DECLARE MODULE ID SEMICOL
+otherMoodules -> module otherMoodules
+otherMoodules -> ε
+driverModule -> DRIVERDEF DRIVER PROGRAM DRIVER ENDDEF moduleDef
+module -> 
 
-40. declare_stmt -> DECLARE id_list COLON data_type SEMICOL
-41. condition_stmt -> SWITCH BO ID BC START case_stmts default END
-42. case_stmts -> CASE value COLON statements BREAK SEMICOL case_stmt 
-42(a). case_stmt ->  CASE value COLON statements BREAK SEMICOL case_stmt | ε
-43. value -> NUM | TRUE | FALSE
-44. default -> DEFAULT COLON statements BREAK SEMICOL | ε
-45. iterative_stmt -> FOR BO ID IN range BC START statements END |
-                      WHILE BO boolean_expr BC START statements END
-46. range -> NUM RANGEOP NUM
+
+
+declareStmt -> DECLARE idList COLON dataType SEMICOL
+conditionStmt -> SWITCH BO ID BC START case_stmts default END
+caseStmts -> CASE value COLON statements BREAK SEMICOL caseStmt 
+caseStmt ->  CASE value COLON statements BREAK SEMICOL caseStmt | ε
+value -> NUM | TRUE | FALSE
+default -> DEFAULT COLON statements BREAK SEMICOL | ε
+iterativeStmt -> FOR BO ID IN range BC START statements END |
+                 WHILE BO boolean_expr BC START statements END
+range -> NUM RANGEOP NUM
