@@ -120,4 +120,19 @@ relational_op -> EQ
 relational_op -> NE
 declare_stmt -> DECLARE id_list COLON data_type SEMICOL
 conditional_stmt -> SWITCH BO ID BC START case_stmts default END
-
+case_stmts -> CASE value COLON statements BREAK SEMICOL n9
+n9 -> CASE value COLON statements BREAK SEMICOL n9
+n9 -> ε
+value -> NUM
+value -> TRUE
+value -> FALSE
+default -> DEFAULT COLON statements BREAK SEMICOL
+default -> ε
+iterative_stmt -> FOR BO ID IN range_for_loop BC START statements END
+iterative_stmt -> WHILE BO arithmetic_or_boolean_exp BC START statements END
+range_for_loop -> sign_for_loop new_index_for_loop
+index_for_loop -> sign_for_loop new_index_for_loop
+new_index_for_loop -> NUM
+sign_for_loop -> PLUS
+sign_for_loop -> MINUS
+sign_for_loop -> ε
