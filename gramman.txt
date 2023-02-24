@@ -71,6 +71,53 @@ unary_op -> PLUS
 unary_op -> MINUS
 new_nt -> BO arithmetic_exp BC
 new_nt -> var_id_num 
-\\ DOING RULE 27
-
+arithmetic_or_boolean_exp -> any_term n7
+n7 -> logical_op any_term n7
+n7 -> ε
+any_term -> arthmetic_exp n8 
+any_term -> bool_const
+n8 -> relational_op arthmetic_exp 
+n8 -> ε
+arthmetic_exp -> term n4
+n4 -> op1 term n4 
+n4 -> ε
+term -> factor n5
+n5 -> op2 factor n5 
+n5 -> ε
+factor -> BO arthmetic_exp BC
+factor -> id_num_rnum 
+factor -> bool_const
+factor -> array_element
+array_element -> ID SQBO element_index_with_exp SQBC
+factor -> NUM
+factor -> RNUM
+factor -> ID n11
+n11 -> SQBO element_index_with_exp SQBC 
+n11 -> ε
+element_index_with_exp -> sign new_index
+element_index_with_exp -> arr_exp 
+element_index_with_exp -> sign BO arr_exp BC
+arr_exp -> arr_term arr_n4
+arr_n4 -> op1 arr_term arr_n4
+arr_n4 -> ε
+arr_term -> arr_factor arr_n5
+arr_n5 -> op2 arr_factor arr_n5
+arr_n5 -> ε
+arr_factor -> id_num_rnum
+arr_factor -> bool_const
+arr_factor -> BO arr_exp BC
+op1 -> PLUS
+op1 -> MINUS
+op2 -> MUL
+op2 -> DIV
+logical_op -> AND
+logical_op -> OR
+relational_op -> LT
+relational_op -> LE
+relational_op -> GT 
+relational_op -> GE
+relational_op -> EQ
+relational_op -> NE
+declare_stmt -> DECLARE id_list COLON data_type SEMICOL
+conditional_stmt -> SWITCH BO ID BC START case_stmts default END
 
