@@ -1,4 +1,4 @@
-    DUMMY = -1,
+    DUMMY,
     INTEGER,
     REAL,
     BOOLEAN,
@@ -28,4 +28,7 @@
     AND,
     OR,
     TRUE,
-    FALSE
+    FALSE,
+    END_OF_FILE,
+    LEXICAL_ERROR_1,
+    LEXICAL_ERROR_2

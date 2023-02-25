@@ -13,12 +13,12 @@ typedef struct lookupTableRecord {
     char* lexeme;
     int token;
 } lookupTableRecord;
-lookupTableRecord lookupTable[30];
+// lookupTableRecord lookupTable[30];
 
-void initializeLookupTable();
+void initializeLookupTable(lookupTableRecord* lookupTable);
 long long rollingHashFun(char* lexeme);
 int hash1(long long rollingHash);
 int hash2(long long rollingHash);
-void insert(lookupTableRecord rec);
-int search(char* lexeme);
+void insert(lookupTableRecord* lookupTable, lookupTableRecord rec);
+int search(lookupTableRecord* lookupTable, char* lexeme);
 void generateLookupTable();
