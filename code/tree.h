@@ -9,4 +9,4 @@ typedef struct treeNode {
 } treeNode;
 
 treeNode* createTreeNode();
-void addTreeNode(treeNode* root,  grammarSymbol symbol);
+void addTreeNode(treeNode* root,  treeNode* child);
