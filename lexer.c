@@ -15,7 +15,7 @@ removeComment(char *testcaseFile, char *cleanFile)
         exit(1);
     }
     else
-        printf("File openned");
+        printf("File openned"); 
     // checked if the files are openned or not
 
     char *c ="**";
