@@ -37,7 +37,7 @@
 #include <stdbool.h>
 
 typedef enum {
-    DUMMY,
+    DUMMY = -1,
     INTEGER,
     REAL,
     BOOLEAN,
