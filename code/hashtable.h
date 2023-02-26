@@ -21,4 +21,4 @@ int hash1(long long rollingHash);
 int hash2(long long rollingHash);
 void insert(lookupTableRecord* lookupTable, lookupTableRecord rec);
 int search(lookupTableRecord* lookupTable, char* lexeme);
-void generateLookupTable();
+// void generateLookupTable();

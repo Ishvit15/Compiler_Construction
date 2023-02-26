@@ -10,6 +10,5 @@ void fillEnumToNonTerminal(FILE* fp) {
 
 int main() {
 
-
     return 0;
 }
