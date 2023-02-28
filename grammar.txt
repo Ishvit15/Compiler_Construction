@@ -54,7 +54,6 @@ lvalue_arr_stmt SQBO element_index_with_exp SQBC ASSIGNOP expression SEMICOL
 index_arr sign
 index_arr new_index
 new_index NUM
-index ID
 sign PLUS
 sign MINUS
 sign EPSILON
