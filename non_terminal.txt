@@ -25,9 +25,7 @@ which_stmt
 lvalue_id_stm 
 lvalue_arr_stmt 
 index_arr 
-index_arr 
 new_index 
-index 
 sign 
 module_reuse_stmt 
 actual_para_list 
@@ -49,7 +47,6 @@ n4
 term
 n5 
 factor  
-factor 
 n11
 element_index_with_exp 
 arr_exp 
