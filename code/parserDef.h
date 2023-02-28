@@ -100,7 +100,7 @@ typedef struct {
     rhsOfGrammarRuleNode* next;
 } rhsOfGrammarRuleNode;
 
-grammarRule grammar[NUM_OF_RULES];
+grammarRule grammar[TOTAL_RULES];
 
 int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
 
