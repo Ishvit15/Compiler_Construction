@@ -8,5 +8,5 @@ typedef struct treeNode {
     int childCount;
 } treeNode;
 
-treeNode* createTreeNode();
+treeNode* createTreeNode(grammarSymbol symbol);
 void addTreeNode(treeNode* root,  treeNode* child);

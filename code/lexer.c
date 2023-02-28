@@ -2,8 +2,8 @@
 #include "driver.h"
 #include "lexer.h"
 void getStream(FILE* fp) {
-    TOKEN token = getNextToken(fp);
     while(true) {
+        TOKEN token = getNextToken(fp);
         if(token.TK == END_OF_FILE)
             break;
         else if(token.TK == LEXICAL_ERROR_1)

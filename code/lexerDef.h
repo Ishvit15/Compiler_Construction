@@ -97,7 +97,8 @@ typedef enum {
     SQBC,
     BO,
     BC,
-    COMMENTMARK
+    COMMENTMARK,
+    EPSILON
 } Name;
 
 #define MAX_LEXEME_LENGTH 20

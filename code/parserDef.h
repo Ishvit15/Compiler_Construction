@@ -1,5 +1,9 @@
 #include "lexerDef.h"
+#include "driver.h"
+#include "set.h"
 #include <stdio.h>
+#define NUM_OF_RULES 138
+#define NO_MATCH -1
 
 typedef enum {
     program,
@@ -85,3 +89,20 @@ typedef struct grammarSymbol {
     };
 } grammarSymbol;
 
+typedef struct {
+    nonTerminalNo lhsSymbol;
+    rhsOfGrammarRuleNode* head;
+    rhsOfGrammarRuleNode* tail;
+} grammarRule;
+
+typedef struct {
+    grammarSymbol symbol;
+    rhsOfGrammarRuleNode* next;
+} rhsOfGrammarRuleNode;
+
+grammarRule grammar[NUM_OF_RULES];
+
+int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+
+Set firstSet[NON_TERMINALS_COUNT];
+Set followSet[NON_TERMINALS_COUNT];
