@@ -48,8 +48,7 @@ arthmetic_exp
 n4 
 term
 n5 
-factor 
-array_element 
+factor  
 factor 
 n11
 element_index_with_exp 
