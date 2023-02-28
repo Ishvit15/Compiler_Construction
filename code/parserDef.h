@@ -2,7 +2,7 @@
 #include "driver.h"
 #include "set.h"
 #include <stdio.h>
-#define NUM_OF_RULES 141
+#define TOTAL_RULES 141
 #define NO_MATCH -1
 
 typedef enum {
