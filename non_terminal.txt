@@ -16,9 +16,7 @@ module_def
 statements 
 statement 
 io_stmt  
-bool_const 
-id_num_rnum 
-array_element_for_print  
+bool_const   
 var_print 
 p1 
 simple_stmt 
