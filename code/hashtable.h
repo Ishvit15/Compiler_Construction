@@ -1,24 +1,19 @@
+#ifndef HASH_H
+#define HASH_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 
+#include "hashDef.h"
+
 // #define ll long long;
-#define LOOKUP_TABLE_SIZE 199
-#define PRIME 197
-// #define struct lookupTableRecord lookupTableRecord
-const int m = 1000000007;
-const int p = 53;
-
-typedef struct lookupTableRecord {
-    char* lexeme;
-    int token;
-} lookupTableRecord;
-// lookupTableRecord lookupTable[30];
-
-void initializeLookupTable(lookupTableRecord* lookupTable);
-long long rollingHashFun(char* lexeme);
+void initializeLookupTable(lookupTableRecord *lookupTable);
+long long rollingHashFun(char *lexeme);
 int hash1(long long rollingHash);
 int hash2(long long rollingHash);
-void insert(lookupTableRecord* lookupTable, lookupTableRecord rec);
-int search(lookupTableRecord* lookupTable, char* lexeme);
-// void generateLookupTable();
+void insert(lookupTableRecord *lookupTable, lookupTableRecord rec);
+int search(char *lexeme);
+void generateLookupTable();
+
+#endif
