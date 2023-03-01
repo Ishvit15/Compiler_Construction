@@ -1,5 +1,5 @@
 #include "parseDef.h"
-//#include "tree.h"
+// #include "tree.h"
 #include "stack.h"
 #include "lexer.h"
 #include <string.h>
@@ -7,8 +7,6 @@
 #include "lexerDef.h"
 #include <stdbool.h>
 #include <stdio.h>
-
-
 
 // char *gram[TOTAL_RULES] = {
 //     "program module_declerations other_modules driver_module other_modules",
@@ -154,7 +152,6 @@
 //     "sign_for_loop EPSILON",
 // };
 
-
 grammarSymbol symbolOf(char *c)
 {
     grammarSymbol temp;
@@ -170,7 +167,7 @@ grammarSymbol symbolOf(char *c)
     }
     for (int i = 0; i < TERMINALS_COUNT; i++)
     {
-        //HANDLE EPSILON
+        // HANDLE EPSILON
         if (strcmp(c, enumToTerminal[i]) == 0)
         {
             temp.isTerminal = true;
@@ -178,25 +175,24 @@ grammarSymbol symbolOf(char *c)
             return temp;
         }
     }
-    
 }
 
 rhsOfGrammarRuleNode *sym_Insert(char arr[])
 {
-    //printf("%s\n", arr);
-    
-    //const char z[2] = " \n";
-    // also using it for keeping lhs in the head
+    // printf("%s\n", arr);
+
+    // const char z[2] = " \n";
+    //  also using it for keeping lhs in the head
     rhsOfGrammarRuleNode *head = (rhsOfGrammarRuleNode *)malloc(sizeof(rhsOfGrammarRuleNode));
     rhsOfGrammarRuleNode *temp = head;
     int i = 0, flag = 1;
-    //char *y = arr;
-    // char brr[220];
-    // strcpy(brr, arr);
+    // char *y = arr;
+    //  char brr[220];
+    //  strcpy(brr, arr);
     char *s = strtok(arr, " \n");
     while (s != NULL)
     {
-        //printf("%s\t", s);
+        // printf("%s\t", s);
         if (flag == 1)
         {
             head->symbol = symbolOf(s);
@@ -213,7 +209,7 @@ rhsOfGrammarRuleNode *sym_Insert(char arr[])
         }
         s = strtok(NULL, " \n");
     }
-    printf("\n");
+    //printf("\n");
     return head;
 }
 
@@ -234,9 +230,10 @@ void printGrammar(rhsOfGrammarRuleNode *n)
 
 void populateGrammar()
 {
-    //Creating file pointer for file
+    // Creating file pointer for file
     FILE *gr = fopen("grammar.txt", "r");
-    if(gr == NULL) printf("Bad\n");
+    if (gr == NULL)
+        printf("Bad\n");
     char c[100];
     int n = 0;
     // fscanf(gr, "%[^\n]", c);
@@ -247,104 +244,154 @@ void populateGrammar()
     //     printf("%s\n", c);
     // }
     // printf("No of rules = %d\n", n);
-    while(fgets(c, 100, gr)){
-        //printf("%s\n", c);
+    while (fgets(c, 100, gr))
+    {
+        // printf("%s\n", c);
         n++;
     }
 
-    //printf("%d\n", n);
+    // printf("%d\n", n);
     TOTAL_RULES = n;
-    rules = malloc(TOTAL_RULES * sizeof(rhsOfGrammarRuleNode*));
+    rules = malloc(TOTAL_RULES * sizeof(rhsOfGrammarRuleNode *));
     fseek(gr, 0, SEEK_SET);
     int i = 0;
     printf("Start\n");
     while (fgets(c, 100, gr))
     {
-        //printf("%d ", i);
+        // printf("%d ", i);
         rules[i] = sym_Insert(c);
-        //printGrammar(rules[i]);
+        // printGrammar(rules[i]);
         i++;
     }
     fclose(gr);
 
-    //printf("1\n");
-    // for (int i = 0; i < TOTAL_RULES; ++i)
-    // {
-    //     //char gramRule[] = gram[i];
-    //     rules[i] = sym_Insert(gram[i]);
-    // }
+    // printf("1\n");
+    //  for (int i = 0; i < TOTAL_RULES; ++i)
+    //  {
+    //      //char gramRule[] = gram[i];
+    //      rules[i] = sym_Insert(gram[i]);
+    //  }
 }
 
+void computeFirstSets()
+{
 
+    for (int i = TOTAL_RULES - 1; i >= 0; i--)
+    {
+        // printf("4\t");
+        rhsOfGrammarRuleNode *curr = rules[i];
+        rhsOfGrammarRuleNode *ptr = rules[i]->next;
 
-void computeFirstSets(){
+        // while(ptr != NULL){
+        //     if(ptr->symbol.isTerminal)
+        //         firstSet[curr->symbol.ntno][ptr->symbol.tno] = true;
+        //         break;
+            
+        // }
 
-    for(int i= TOTAL_RULES -1; i>=0; i--){
-        //printf("4\t");
-        rhsOfGrammarRuleNode * curr = rules[i];
-        rhsOfGrammarRuleNode * ptr = rules[i]->next;
+        // printGrammar(curr);
 
-        printGrammar(curr);
-        
-        //int i=0;
-        while(ptr!=NULL){
-            //printf("%d\n", i++);
-            printGrammar(ptr);
+        // int i=0;
+        while (ptr != NULL)
+        {
+            // printf("%d\n", i++);
+            // printGrammar(ptr);
 
-            bool a[TERMINALS_COUNT];
-            initializeSet(&a);
+            // bool a[TERMINALS_COUNT];
+            // initializeSet(&a);
 
-            if(ptr->symbol.isTerminal==TRUE){
-                //addToSet(&firstSet[curr->symbol.ntno], ptr->symbol.tno);
+            if (ptr->symbol.isTerminal)
+            {
+                // addToSet(&firstSet[curr->symbol.ntno], ptr->symbol.tno);
                 firstSet[curr->symbol.ntno][ptr->symbol.tno] = true;
                 break;
             }
-            
-            else {
-                
-                // if(findElementInSet(firstSet[ptr->symbol.ntno], 60)!= TRUE){
-                if (firstSet[ptr->symbol.ntno][60] != TRUE)
-                {
-                    deleteFromSet(a, 60);
-                    unionOfSets(&a, &a, &firstSet[ptr->symbol.ntno]);
-                    unionOfSets(&firstSet[curr->symbol.ntno], &firstSet[curr->symbol.ntno], &a);
-                    break;
-                }
-                else{
-                    unionOfSets(&a, &a, &firstSet[ptr->symbol.ntno]);
-                    if(ptr->next ==NULL){
-                        unionOfSets(&firstSet[curr->symbol.ntno], &firstSet[curr->symbol.ntno], &a);
-                        break;
-                    }
-                    else{
-                        ptr = ptr->next;
-                    }
-                }
-            }
-        }
-        printf("\n");
-        
-    }
 
+            for (int j = 0; j < TERMINALS_COUNT; j++)
+                firstSet[curr->symbol.ntno][j] = firstSet[curr->symbol.ntno][j] || firstSet[ptr->symbol.ntno][j];
+
+            if (!firstSet[ptr->symbol.ntno][60])
+            {
+                firstSet[curr->symbol.ntno][60] = false;
+                break;
+            }
+            ptr = ptr->next;
+        }
+
+            // else {
+
+            //     // if(findElementInSet(firstSet[ptr->symbol.ntno], 60)!= TRUE){
+            //     if (firstSet[ptr->symbol.ntno][60] != TRUE)
+            //     {
+            //         deleteFromSet(a, 60);
+            //         unionOfSets(&a, &a, &firstSet[ptr->symbol.ntno]);
+            //         unionOfSets(&firstSet[curr->symbol.ntno], &firstSet[curr->symbol.ntno], &a);
+            //         break;
+            //     }
+            //     else{
+            //         unionOfSets(&a, &a, &firstSet[ptr->symbol.ntno]);
+            //         if(ptr->next ==NULL){
+            //             unionOfSets(&firstSet[curr->symbol.ntno], &firstSet[curr->symbol.ntno], &a);
+            //             break;
+            //         }
+            //         else{
+            //             ptr = ptr->next;
+            //         }
+            //     }
+            // }
+
+        //     else
+        //     {
+        //         do
+        //         {
+        //             // unionOfSets(&a, &a, &firstSet[ptr->symbol.ntno]);
+        //             if (ptr->symbol.isTerminal)
+        //             {
+        //                 firstSet[curr->symbol.ntno][ptr->symbol.tno] = true;
+        //                 break;
+        //             }
+
+        //             for (int j = 0; j < TERMINALS_COUNT; j++)
+        //                 firstSet[curr->symbol.ntno][j] = firstSet[curr->symbol.ntno][j] || firstSet[ptr->symbol.ntno][j];
+
+        //             if (firstSet[ptr->symbol.ntno][60] == false)
+        //             {
+        //                 firstSet[curr->symbol.ntno][60] = false;
+        //                 break;
+        //             }
+        //             ptr = ptr->next;
+
+        //         } while (ptr != NULL && firstSet[ptr->symbol.ntno][60]);
+        //         break;
+        //     }
+        // }
+        //printf("\n");
+    }
 }
 
-void printFirstSets(){
-    for (int i=0; i<NON_TERMINALS_COUNT; i++){
+void printFirstSets()
+{
+    for (int i = 0; i < NON_TERMINALS_COUNT; i++)
+    {
         printf("First set of %s is: ", enumToNonTerminal[i]);
-        for(int j=0; j<TERMINALS_COUNT; j++){
-            if(firstSet[i][j]){
-                printf("%s ", enumToTerminal[j]);
+        for (int j = 0; j < TERMINALS_COUNT; j++)
+        {
+            if (firstSet[i][j])
+            {
+                printf("%s ,", enumToTerminal[j]);
             }
         }
         printf("\n");
     }
 }
 
-int main(){
+int main()
+{
     fillEnumToNonTerminal();
     fillEnumToTerminal();
     populateGrammar();
-    int rno;
+    for(int i = 0; i < TOTAL_RULES; i++)
+        printGrammar(rules[i]);
     // printf("Enter rule number\n");
     // scanf("%d", &rno);
     // rhsOfGrammarRuleNode *n = rules[rno];
@@ -357,14 +404,13 @@ int main(){
     //     n=n->next;
     // }
 
-    //computeFirstSets();
-    //printFirstSets();
+    computeFirstSets();
+    printFirstSets();
 
     return 0;
-
 }
 
-/* 
+/*
 Create Parse Table:
     set of Ts[]
     Create the First, Follow table
@@ -375,17 +421,19 @@ Create Parse Table:
             Ts[] = First(LHS)
 
         for(j in Ts)
-            Table[LHS,j] = i      
+            Table[LHS,j] = i
 
 
 
 */
 
-void createPT(rhsOfGrammarRuleNode *rules )/* First & Follow sets taken from parseDef.h*/
+void createPT(rhsOfGrammarRuleNode *rules) /* First & Follow sets taken from parseDef.h*/
 {
     // initializing pt with -1
-    for (int i = 0; i < NON_TERMINALS_COUNT; i++) {
-        for (int j = 0; j < TERMINALS_COUNT - 1; j++) {
+    for (int i = 0; i < NON_TERMINALS_COUNT; i++)
+    {
+        for (int j = 0; j < TERMINALS_COUNT - 1; j++)
+        {
             pt[i][j] = -1;
         }
     }
@@ -398,37 +446,36 @@ void createPT(rhsOfGrammarRuleNode *rules )/* First & Follow sets taken from par
         rhsOfGrammarRuleNode *rhs = rule.next;
         grammarSymbol rhsSym = (*rhs).symbol;
         bool epsilonFlag = false;
-        bool  tempFollowSet[TERMINALS_COUNT];
+        bool tempFollowSet[TERMINALS_COUNT];
         bool tempFirstSet[TERMINALS_COUNT];
         // if rhsSym is epsilon
-        if((rhsSym.isTerminal) && (rhsSym.tno == 60))
-        { // check if the value is 60 for epsilon
-                tempFollowSet[TERMINALS_COUNT]= followSet[lhs.ntno]; //check this
-                epsilonFlag = true; 
+        if ((rhsSym.isTerminal) && (rhsSym.tno == 60))
+        {                                                         // check if the value is 60 for epsilon
+            tempFollowSet[TERMINALS_COUNT] = followSet[lhs.ntno]; // check this
+            epsilonFlag = true;
         }
         // else
-        else 
+        else
         {
             tempFirstSet[TERMINALS_COUNT] = firstSet[lhs.ntno];
-        }         
-        if (epsilonFlag) 
+        }
+        if (epsilonFlag)
         {
             for (int j = 0; j < TERMINALS_COUNT - 1; j++)
             {
-                if (tempFollowSet[j]) 
+                if (tempFollowSet[j])
                 {
                     pt[lhs.ntno][j] = i;
                 }
             }
-        }   
-        else 
+        }
+        else
         {
-            for (int j = 0; j < TERMINALS_COUNT - 1; j++) 
+            for (int j = 0; j < TERMINALS_COUNT - 1; j++)
             {
                 if (tempFirstSet[j])
                     pt[lhs.ntno][j] = i;
-            }   
-        } 
-
+            }
+        }
     }
 }
