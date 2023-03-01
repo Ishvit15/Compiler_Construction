@@ -34,6 +34,10 @@ io_stmt GET_VALUE BO ID SEMICOL
 io_stmt PRINT BO var_print BC SEMICOL
 bool_const TRUE 
 bool_const FALSE
+id_num_rnum ID 
+id_num_rnum NUM
+id_num_rnum RNUM
+array_element_for_print ID SQBO new_index SQBC
 var_print ID p1
 var_print NUM
 var_print RNUM 
@@ -47,19 +51,13 @@ which_stmt lvalue_id_stmt
 which_stmt lvalue_arr_stmt
 lvalue_id_stm ASSIGNOP expression SEMICOL
 lvalue_arr_stmt SQBO element_index_with_exp SQBC ASSIGNOP expression SEMICOL
-index_arr sign new_index
+index_arr sign
+index_arr new_index
 new_index NUM
-new_index ID
 sign PLUS
 sign MINUS
 sign EPSILON
-module_reuse_stmt optional USE MODULE ID WITH PARAMETERS actual_para_list SEMICOL
-actual_para_list NUM
-actual_para_list RNUM
-actual_para_list bool_const
-actual_para_list ID n11
-n11 SQBO element_index_with_exp SQBC
-n11 EPSILON
+module_reuse_stmt optional USE MODULE ID WITH PARAMETERS id_list SEMICOL
 optional SQBO id_list SQBC ASSIGNOP
 optional EPSILON
 id_list ID n3
@@ -72,15 +70,12 @@ unary_op PLUS
 unary_op MINUS
 new_nt BO arithmetic_exp BC
 new_nt var_id_num 
-var_id_num ID
-var_id_num NUM
-var_id_num RNUM
 arithmetic_or_boolean_exp any_term n7
 n7 logical_op any_term n7
 n7 EPSILON
 any_term arthmetic_exp n8 
-any_term bool_const n8
-n8 relational_op arthmetic_exp n8
+any_term bool_const
+n8 relational_op arthmetic_exp 
 n8 EPSILON
 arthmetic_exp term n4
 n4 op1 term n4 
@@ -89,24 +84,25 @@ term factor n5
 n5 op2 factor n5 
 n5 EPSILON
 factor BO arthmetic_exp BC
+factor id_num_rnum 
 factor bool_const
+factor array_element
+array_element ID SQBO element_index_with_exp SQBC
 factor NUM
 factor RNUM
 factor ID n11
 n11 SQBO element_index_with_exp SQBC 
 n11 EPSILON
-element_index_with_exp sign n10
+element_index_with_exp sign new_index
 element_index_with_exp arr_exp 
-n10 new_index 
-n10 BO arr_exp BC
+element_index_with_exp sign BO arr_exp BC
 arr_exp arr_term arr_n4
 arr_n4 op1 arr_term arr_n4
 arr_n4 EPSILON
 arr_term arr_factor arr_n5
 arr_n5 op2 arr_factor arr_n5
 arr_n5 EPSILON
-arr_factor ID
-arr_factor NUM
+arr_factor id_num_rnum
 arr_factor bool_const
 arr_factor BO arr_exp BC
 op1 PLUS
@@ -122,18 +118,18 @@ relational_op GE
 relational_op EQ
 relational_op NE
 declare_stmt DECLARE id_list COLON data_type SEMICOL
-conditional_stmt SWITCH BO ID BC START case_stmts default1 END
+conditional_stmt SWITCH BO ID BC START case_stmts default END
 case_stmts CASE value COLON statements BREAK SEMICOL n9
 n9 CASE value COLON statements BREAK SEMICOL n9
 n9 EPSILON
 value NUM
 value TRUE
 value FALSE
-default1 DEFAULT COLON statements BREAK SEMICOL
-default1 EPSILON
+default DEFAULT COLON statements BREAK SEMICOL
+default EPSILON
 iterative_stmt FOR BO ID IN range_for_loop BC START statements END
 iterative_stmt WHILE BO arithmetic_or_boolean_exp BC START statements END
-range_for_loop index_for_loop RANGEOP index_for_loop
+range_for_loop sign_for_loop new_index_for_loop
 index_for_loop sign_for_loop new_index_for_loop
 new_index_for_loop NUM
 sign_for_loop PLUS
