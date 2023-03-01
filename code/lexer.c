@@ -739,12 +739,12 @@ void getStream(FILE* fp) {
 
 void removeComment(char *testcaseFile, char *cleanFile)
 {
-    FILE *fp = fopen(testcaseFile,"r");
-    FILE *fpt = fopen(cleanFile, "w");
-    if(fpt == NULL)
+    FILE *ncfp = fopen(testcaseFile,"r");
+    FILE *cfpt = fopen(cleanFile, "w");
+    if(cfpt == NULL)
         printf("Error");
     
-    if(fp==NULL)
+    if(ncfp==NULL)
     {
         printf("File cannot be openned.");
         exit(1);
@@ -755,13 +755,13 @@ void removeComment(char *testcaseFile, char *cleanFile)
 
     char a;
     int flag =0;
-    while((a=getc(fp))!= EOF)
+    while((a=getc(ncfp))!= EOF)
     {
         if(flag == 0)
         {
             if(a != '*')
             {
-                fprintf(fpt, "%c", a);
+                fprintf(cfpt, "%c", a);
                 continue;
             }
             else
@@ -774,8 +774,8 @@ void removeComment(char *testcaseFile, char *cleanFile)
         {
             if(a!='*')
             {
-                fprintf(fpt, "%c", '*');
-                fprintf(fpt, "%c", a);
+                fprintf(cfpt, "%c", '*');
+                fprintf(cfpt, "%c", a);
                 flag =0;
                 continue;
             }
@@ -789,7 +789,7 @@ void removeComment(char *testcaseFile, char *cleanFile)
             if(a!='*')
             {
                 if(a == "\n")
-                    fprintf(fpt, "%c", a);
+                    fprintf(cfpt, "%c", a);
                 continue;
 
             }
@@ -813,7 +813,10 @@ void removeComment(char *testcaseFile, char *cleanFile)
             }
         }
     }
+    fclose(ncfp);
+    fclose(cfpt);
 }
+
 
 /* void main(int argc, char* argv[])
 {
