@@ -1,147 +1,117 @@
 #include "driver.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "lexer.h"
+#include "hashtable.h"
+#include "parseDef.h"
+#include<time.h>
 
-void fillEnumToTerminal(FILE* fp) {
-    strcpy(enumToTerminal[0], "INTEGER");
-    strcpy(enumToTerminal[1], "REAL");
-    strcpy(enumToTerminal[2], "BOOLEAN");
-    strcpy(enumToTerminal[3], "OF");
-    strcpy(enumToTerminal[4], "ARRAY");
-    strcpy(enumToTerminal[5], "START");
-    strcpy(enumToTerminal[6], "END");
-    strcpy(enumToTerminal[7], "DECLARE");
-    strcpy(enumToTerminal[8], "MODULE");
-    strcpy(enumToTerminal[9], "DRIVER");
-    strcpy(enumToTerminal[10], "PROGRAM");
-    strcpy(enumToTerminal[11], "GET_VALUE");
-    strcpy(enumToTerminal[12], "PRINT");
-    strcpy(enumToTerminal[13], "USE");
-    strcpy(enumToTerminal[14], "WITH");
-    strcpy(enumToTerminal[15], "PARAMETERS");
-    strcpy(enumToTerminal[16], "TAKES");
-    strcpy(enumToTerminal[17], "INPUT");
-    strcpy(enumToTerminal[18], "RETURNS");
-    strcpy(enumToTerminal[19], "FOR");
-    strcpy(enumToTerminal[20], "IN");
-    strcpy(enumToTerminal[21], "SWITCH");
-    strcpy(enumToTerminal[22], "CASE");
-    strcpy(enumToTerminal[23], "BREAK");
-    strcpy(enumToTerminal[24], "DEFAULT");
-    strcpy(enumToTerminal[25], "WHILE");
-    strcpy(enumToTerminal[26], "AND");
-    strcpy(enumToTerminal[27], "OR");
-    strcpy(enumToTerminal[28], "TRUE");
-    strcpy(enumToTerminal[29], "FALSE");
-    strcpy(enumToTerminal[30], "END_OF_FILE");
-    strcpy(enumToTerminal[31], "LEXICAL_ERROR_1");
-    strcpy(enumToTerminal[32], "LEXICAL_ERROR_2");
-    strcpy(enumToTerminal[33], "ID");
-    strcpy(enumToTerminal[34], "NUM");
-    strcpy(enumToTerminal[35], "RNUM");
-    strcpy(enumToTerminal[36], "PLUS");
-    strcpy(enumToTerminal[37], "MINUS");
-    strcpy(enumToTerminal[38], "MUL");
-    strcpy(enumToTerminal[39], "DIV");
-    strcpy(enumToTerminal[40], "LT");
-    strcpy(enumToTerminal[41], "LE");
-    strcpy(enumToTerminal[42], "GE");
-    strcpy(enumToTerminal[43], "GT");
-    strcpy(enumToTerminal[44], "EQ");
-    strcpy(enumToTerminal[45], "NE");
-    strcpy(enumToTerminal[46], "DEF");
-    strcpy(enumToTerminal[47], "ENDDEF");
-    strcpy(enumToTerminal[48], "DRIVERDEF");
-    strcpy(enumToTerminal[49], "DRIVERENDDEF");
-    strcpy(enumToTerminal[50], "COLON");
-    strcpy(enumToTerminal[51], "RANGEOP");
-    strcpy(enumToTerminal[52], "SEMICOL");
-    strcpy(enumToTerminal[53], "COMMA");
-    strcpy(enumToTerminal[54], "ASSIGNOP");
-    strcpy(enumToTerminal[55], "SQBO");
-    strcpy(enumToTerminal[56], "SQBC");
-    strcpy(enumToTerminal[57], "BO");
-    strcpy(enumToTerminal[58], "BC");
-    strcpy(enumToTerminal[59], "COMMENTMARK");
-
-}
-void fillEnumToNonTerminal(FILE* fp) {
-    strcpy(enumToNonTerminal[0], "program");
-    strcpy(enumToNonTerminal[1], "module_declerations");
-    strcpy(enumToNonTerminal[2], "module_decleration");
-    strcpy(enumToNonTerminal[3], "other_modules");
-    strcpy(enumToNonTerminal[4], "driver_module");
-    strcpy(enumToNonTerminal[5], "module");
-    strcpy(enumToNonTerminal[6], "ret");
-    strcpy(enumToNonTerminal[7], "input_plist");
-    strcpy(enumToNonTerminal[8], "n1");
-    strcpy(enumToNonTerminal[9], "output_plist");
-    strcpy(enumToNonTerminal[10], "n2");
-    strcpy(enumToNonTerminal[11], "data_type");
-    strcpy(enumToNonTerminal[12], "range_arrays");
-    strcpy(enumToNonTerminal[13], "type");
-    strcpy(enumToNonTerminal[14], "module_def");
-    strcpy(enumToNonTerminal[15], "statements");
-    strcpy(enumToNonTerminal[16], "statement");
-    strcpy(enumToNonTerminal[17], "io_stmt");
-    strcpy(enumToNonTerminal[18], "bool_const");
-    strcpy(enumToNonTerminal[19], "id_num_rnum");
-    strcpy(enumToNonTerminal[20], "array_element_for_print");
-    strcpy(enumToNonTerminal[21], "var_print");
-    strcpy(enumToNonTerminal[22], "p1");
-    strcpy(enumToNonTerminal[23], "simple_stmt");
-    strcpy(enumToNonTerminal[24], "assignment_stmt");
-    strcpy(enumToNonTerminal[25], "which_stmt");
-    strcpy(enumToNonTerminal[26], "lvalue_id_stm");
-    strcpy(enumToNonTerminal[27], "lvalue_arr_stmt");
-    strcpy(enumToNonTerminal[28], "index_arr");
-    strcpy(enumToNonTerminal[29], "new_index");
-    strcpy(enumToNonTerminal[30], "index");
-    strcpy(enumToNonTerminal[31], "sign");
-    strcpy(enumToNonTerminal[32], "module_reuse_stmt");
-    strcpy(enumToNonTerminal[33], "optional");
-    strcpy(enumToNonTerminal[34], "id_list");
-    strcpy(enumToNonTerminal[35], "n3");
-    strcpy(enumToNonTerminal[36], "expression");
-    strcpy(enumToNonTerminal[37], "u");
-    strcpy(enumToNonTerminal[38], "unary_op");
-    strcpy(enumToNonTerminal[39], "new_nt");
-    strcpy(enumToNonTerminal[40], "arithmetic_or_boolean_exp");
-    strcpy(enumToNonTerminal[41], "n7");
-    strcpy(enumToNonTerminal[42], "any_term");
-    strcpy(enumToNonTerminal[43], "n8");
-    strcpy(enumToNonTerminal[44], "arthmetic_exp");
-    strcpy(enumToNonTerminal[45], "n4");
-    strcpy(enumToNonTerminal[46], "term");
-    strcpy(enumToNonTerminal[47], "n5");
-    strcpy(enumToNonTerminal[48], "factor");
-    strcpy(enumToNonTerminal[49], "array_element");
-    strcpy(enumToNonTerminal[50], "factor");
-    strcpy(enumToNonTerminal[51], "n11");
-    strcpy(enumToNonTerminal[52], "element_index_with_exp");
-    strcpy(enumToNonTerminal[53], "arr_exp");
-    strcpy(enumToNonTerminal[54], "arr_n4");
-    strcpy(enumToNonTerminal[55], "arr_term");
-    strcpy(enumToNonTerminal[56], "arr_n5");
-    strcpy(enumToNonTerminal[57], "arr_factor");
-    strcpy(enumToNonTerminal[58], "op1");
-    strcpy(enumToNonTerminal[59], "op2");
-    strcpy(enumToNonTerminal[60], "logical_op");
-    strcpy(enumToNonTerminal[61], "relational_op");
-    strcpy(enumToNonTerminal[62], "declare_stmt");
-    strcpy(enumToNonTerminal[63], "conditional_stmt");
-    strcpy(enumToNonTerminal[64], "case_stmts");
-    strcpy(enumToNonTerminal[65], "n9");
-    strcpy(enumToNonTerminal[66], "value");
-    strcpy(enumToNonTerminal[67], "default1");
-    strcpy(enumToNonTerminal[68], "iterative_stmt");
-    strcpy(enumToNonTerminal[69], "range_for_loop");
-    strcpy(enumToNonTerminal[70], "index_for_loop");
-    strcpy(enumToNonTerminal[71], "new_index_for_loop");
-    strcpy(enumToNonTerminal[72], "sign_for_loop");
-
-}
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
+        printf("!!!!!!!Please check the command!!!!!!!");
+        exit(1);
+    }
+    FILE *fp = fopen(argv[1], "r");
+    int len = atoi(argv[2]);
+    clock_t startTime, endTime;
+    double totalCPUtime, inSec;
+    // printf("1\n");
+    fillEnumToNonTerminal(fp);
+    fillEnumToTerminal(fp);
+    // printf("1\n");
+    // for(int i = 0; i < TERMINALS_COUNT; i++)
+    //      printf("%s\n", enumToTerminal[i]);
+    //printf("1\n");
+    //printf("1\n");
+    
 
 
-int main() {
+    // int rno;
+    // printf("Enter rule number\n"); 
+    // scanf("%d", &rno);
+    // rhsOfGrammarRuleNode *n = rules[rno];
+    // while (n != NULL)
+    // {
+    //     if (n->symbol.isTerminal)
+    //         printf("%s\t", enumToTerminal[n->symbol.tno]);
+    //     else
+    //         printf("%s\t", enumToNonTerminal[n->symbol.ntno]);
+    //     n = n->next;
+    // }
+    // printf("\n");
 
-    return 0;
+    // driver as per ma'am instructions
+
+    printf("------------------------------IMPLEMENTATION STATUS----------------------------------\n");
+    printf(" \n");
+    while(1)
+    {
+        int menu =0;
+        printf("--------------------------------------------------------MENU--------------------------------------------------------\n");
+        printf(" 0. EXIT. \n" 
+               " 1. To see your source code without COMMENTS.\n"
+               " 2. Print the token list generated by the Lexer along with lexical errors (if any).\n"
+               " 3. Verify the syntatic correctness of the source code and print the parse tree for it.\n"
+               " 4. Print the total time taken by Lexer and Parser to verify the sytantic correctness.\n");
+        printf("PLEASE ENTER YOUR CHOICE: %d", menu);
+
+        switch (menu)
+        {
+        case 0:
+            exit(0);
+            break;
+        case 1: 
+            FILE *newFile;
+            removeComment(fp, newFile);
+            printf("New file has been created (named cleanFile) after removing the comments from given file.\n");
+            break;
+        case 2:
+            initLex(fp, len);
+            getStream();
+            break;
+        case 3:
+            populateGrammar();
+            // ////////need to add the parse tree print and stuff (UTKARSH's WORK)/////////
+            int me=1;
+            while(me!=0)
+            {
+                printf("Enter your choics to print : \n1. FIRST Set. \n2. FOLLOW SET \n0.EXIT \n");
+                scanf("%d", &me);
+                if(me == 1)
+                {  // PRINT FIRST SET 
+                    continue;
+                }
+                else if(me==2)
+                {// PRINT FOLLOW SET
+                    continue;
+                }
+                else if( me==0)
+                    continue;
+                else
+                    printf("Enter valid argument.");
+            }
+            break;
+        case 4:
+            startTime = clock();
+            fillEnumToNonTerminal(fp);
+            fillEnumToTerminal(fp);
+            initLex(fp, len);
+            getStream();
+            populateGrammar();
+            // NEED TO ADD ALL THE LEXER AND PARSER FUNCTIONANILTY
+
+            endTime = clock();
+            totalCPUtime = (double)(endTime - startTime);
+            inSec = totalCPUtime / CLOCKS_PER_SEC;
+            printf("Total time taken by CPU %ld", totalCPUtime,
+            "\n Total time taken by CPU in Seconds %ld", inSec);
+            break;
+        default:
+            printf("!!!!!!! PLEASE ENTER VALID INPUT !!!!!!!\n");
+            break;
+        }
+    }
+    fclose(fp);
 }
