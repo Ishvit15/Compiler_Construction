@@ -1,10 +1,11 @@
 #include "lexerDef.h"
 // #include "driver.h"
-// #include "set.h"
+#include "set.h"
 #include <stdio.h>
 #include <stdbool.h>
-#define TOTAL_RULES 141
 #define NO_MATCH -1
+
+int TOTAL_RULES;
 
 typedef enum
 {
@@ -109,10 +110,11 @@ typedef struct rhsOfGrammarRuleNode
 
 // int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
 
-// Set firstSet[NON_TERMINALS_COUNT];
-// Set followSet[NON_TERMINALS_COUNT];
+bool firstSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+bool followSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
 
-rhsOfGrammarRuleNode *rules[TOTAL_RULES];
+rhsOfGrammarRuleNode **rules;
 
+int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT]; // Not considering $
 
 void populateGrammar();
