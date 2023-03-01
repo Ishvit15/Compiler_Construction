@@ -19,8 +19,7 @@
 //     // extraChar & num??
 // }
 
-void fillEnumToTerminal()
-{
+void fillEnumToTerminal(FILE* fp) {
     strcpy(enumToTerminal[0], "INTEGER");
     strcpy(enumToTerminal[1], "REAL");
     strcpy(enumToTerminal[2], "BOOLEAN");
@@ -47,43 +46,43 @@ void fillEnumToTerminal()
     strcpy(enumToTerminal[23], "BREAK");
     strcpy(enumToTerminal[24], "DEFAULT");
     strcpy(enumToTerminal[25], "WHILE");
-    strcpy(enumToTerminal[26], "ID");
-    strcpy(enumToTerminal[27], "NUM");
-    strcpy(enumToTerminal[28], "RNUM");
-    strcpy(enumToTerminal[29], "AND");
-    strcpy(enumToTerminal[30], "OR");
-    strcpy(enumToTerminal[31], "TRUE");
-    strcpy(enumToTerminal[32], "FALSE");
-    strcpy(enumToTerminal[33], "PLUS");
-    strcpy(enumToTerminal[34], "MINUS");
-    strcpy(enumToTerminal[35], "MUL");
-    strcpy(enumToTerminal[36], "DIV");
-    strcpy(enumToTerminal[37], "LT");
-    strcpy(enumToTerminal[38], "LE");
-    strcpy(enumToTerminal[39], "GE");
-    strcpy(enumToTerminal[40], "GT");
-    strcpy(enumToTerminal[41], "EQ");
-    strcpy(enumToTerminal[42], "NE");
-    strcpy(enumToTerminal[43], "DEF");
-    strcpy(enumToTerminal[44], "ENDDEF");
-    strcpy(enumToTerminal[45], "DRIVERDEF");
-    strcpy(enumToTerminal[46], "DRIVERENDDEF");
-    strcpy(enumToTerminal[47], "COLON");
-    strcpy(enumToTerminal[48], "RANGEOP");
-    strcpy(enumToTerminal[49], "SEMICOL");
-    strcpy(enumToTerminal[50], "COMMA");
-    strcpy(enumToTerminal[51], "ASSIGNOP");
-    strcpy(enumToTerminal[52], "SQBO");
-    strcpy(enumToTerminal[53], "SQBC");
-    strcpy(enumToTerminal[54], "BO");
-    strcpy(enumToTerminal[55], "BC");
-    strcpy(enumToTerminal[56], "COMMENTMARK");
-    strcpy(enumToTerminal[57], "END_OF_FILE");
-    strcpy(enumToTerminal[58], "LEX_ERROR_1");
-    strcpy(enumToTerminal[59], "LEX_ERROR_2");
+    strcpy(enumToTerminal[26], "AND");
+    strcpy(enumToTerminal[27], "OR");
+    strcpy(enumToTerminal[28], "TRUE");
+    strcpy(enumToTerminal[29], "FALSE");
+    strcpy(enumToTerminal[30], "END_OF_FILE");
+    strcpy(enumToTerminal[31], "LEX_ERROR_1");
+    strcpy(enumToTerminal[32], "LEX_ERROR_2");
+    strcpy(enumToTerminal[33], "ID");
+    strcpy(enumToTerminal[34], "NUM");
+    strcpy(enumToTerminal[35], "RNUM");
+    strcpy(enumToTerminal[36], "PLUS");
+    strcpy(enumToTerminal[37], "MINUS");
+    strcpy(enumToTerminal[38], "MUL");
+    strcpy(enumToTerminal[39], "DIV");
+    strcpy(enumToTerminal[40], "LT");
+    strcpy(enumToTerminal[41], "LE");
+    strcpy(enumToTerminal[42], "GE");
+    strcpy(enumToTerminal[43], "GT");
+    strcpy(enumToTerminal[44], "EQ");
+    strcpy(enumToTerminal[45], "NE");
+    strcpy(enumToTerminal[46], "DEF");
+    strcpy(enumToTerminal[47], "ENDDEF");
+    strcpy(enumToTerminal[48], "DRIVERDEF");
+    strcpy(enumToTerminal[49], "DRIVERENDDEF");
+    strcpy(enumToTerminal[50], "COLON");
+    strcpy(enumToTerminal[51], "RANGEOP");
+    strcpy(enumToTerminal[52], "SEMICOL");
+    strcpy(enumToTerminal[53], "COMMA");
+    strcpy(enumToTerminal[54], "ASSIGNOP");
+    strcpy(enumToTerminal[55], "SQBO");
+    strcpy(enumToTerminal[56], "SQBC");
+    strcpy(enumToTerminal[57], "BO");
+    strcpy(enumToTerminal[58], "BC");
+    strcpy(enumToTerminal[59], "COMMENTMARK");
+
 }
-void fillEnumToNonTerminal()
-{
+void fillEnumToNonTerminal(FILE* fp) {
     strcpy(enumToNonTerminal[0], "program");
     strcpy(enumToNonTerminal[1], "module_declerations");
     strcpy(enumToNonTerminal[2], "module_decleration");
@@ -99,12 +98,12 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[12], "range_arrays");
     strcpy(enumToNonTerminal[13], "type");
     strcpy(enumToNonTerminal[14], "module_def");
-    strcpy(enumToNonTerminal[15], "Statements");
-    strcpy(enumToNonTerminal[16], "Statement");
+    strcpy(enumToNonTerminal[15], "statements");
+    strcpy(enumToNonTerminal[16], "statement");
     strcpy(enumToNonTerminal[17], "io_stmt");
     strcpy(enumToNonTerminal[18], "bool_const");
-    strcpy(enumToNonTerminal[19], "id_num_rnum");
-    strcpy(enumToNonTerminal[20], "array_element_for_print");
+    strcpy(enumToNonTerminal[19], "n11");
+    strcpy(enumToNonTerminal[20], "actual_para_list");
     strcpy(enumToNonTerminal[21], "var_print");
     strcpy(enumToNonTerminal[22], "p1");
     strcpy(enumToNonTerminal[23], "simple_stmt");
@@ -114,49 +113,47 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[27], "lvalue_arr_stmt");
     strcpy(enumToNonTerminal[28], "index_arr");
     strcpy(enumToNonTerminal[29], "new_index");
-    strcpy(enumToNonTerminal[30], "index");
-    strcpy(enumToNonTerminal[31], "sign");
-    strcpy(enumToNonTerminal[32], "module_reuse_stmt");
-    strcpy(enumToNonTerminal[33], "optional");
-    strcpy(enumToNonTerminal[34], "id_list");
-    strcpy(enumToNonTerminal[35], "n3");
-    strcpy(enumToNonTerminal[36], "expression");
-    strcpy(enumToNonTerminal[37], "u");
-    strcpy(enumToNonTerminal[38], "unary_op");
-    strcpy(enumToNonTerminal[39], "new_nt");
-    strcpy(enumToNonTerminal[40], "arithmetic_or_boolean_exp");
-    strcpy(enumToNonTerminal[41], "n7");
-    strcpy(enumToNonTerminal[42], "any_term");
-    strcpy(enumToNonTerminal[43], "n8");
-    strcpy(enumToNonTerminal[44], "arthmetic_exp");
-    strcpy(enumToNonTerminal[45], "n4");
-    strcpy(enumToNonTerminal[46], "term");
-    strcpy(enumToNonTerminal[47], "n5");
-    strcpy(enumToNonTerminal[48], "factor");
-    strcpy(enumToNonTerminal[49], "array_element");
-    strcpy(enumToNonTerminal[50], "factor");
-    strcpy(enumToNonTerminal[51], "n11");
-    strcpy(enumToNonTerminal[52], "element_index_with_exp");
-    strcpy(enumToNonTerminal[53], "arr_exp");
-    strcpy(enumToNonTerminal[54], "arr_n4");
-    strcpy(enumToNonTerminal[55], "arr_term");
-    strcpy(enumToNonTerminal[56], "arr_n5");
-    strcpy(enumToNonTerminal[57], "arr_factor");
-    strcpy(enumToNonTerminal[58], "op1");
-    strcpy(enumToNonTerminal[59], "op2");
-    strcpy(enumToNonTerminal[60], "logical_op");
-    strcpy(enumToNonTerminal[61], "relational_op");
-    strcpy(enumToNonTerminal[62], "declare_stmt");
-    strcpy(enumToNonTerminal[63], "conditional_stmt");
-    strcpy(enumToNonTerminal[64], "case_stmts");
-    strcpy(enumToNonTerminal[65], "n9");
-    strcpy(enumToNonTerminal[66], "value");
-    strcpy(enumToNonTerminal[67], "default1");
-    strcpy(enumToNonTerminal[68], "iterative_stmt");
-    strcpy(enumToNonTerminal[69], "range_for_loop");
-    strcpy(enumToNonTerminal[70], "index_for_loop");
-    strcpy(enumToNonTerminal[71], "new_index_for_loop");
-    strcpy(enumToNonTerminal[72], "sign_for_loop");
+    strcpy(enumToNonTerminal[30], "sign");
+    strcpy(enumToNonTerminal[31], "module_reuse_stmt");
+    strcpy(enumToNonTerminal[32], "optional");
+    strcpy(enumToNonTerminal[33], "id_list");
+    strcpy(enumToNonTerminal[34], "n3");
+    strcpy(enumToNonTerminal[35], "expression");
+    strcpy(enumToNonTerminal[36], "u");
+    strcpy(enumToNonTerminal[37], "unary_op");
+    strcpy(enumToNonTerminal[38], "new_nt");
+    strcpy(enumToNonTerminal[39], "arithmetic_or_boolean_exp");
+    strcpy(enumToNonTerminal[40], "n7");
+    strcpy(enumToNonTerminal[41], "any_term");
+    strcpy(enumToNonTerminal[42], "n8");
+    strcpy(enumToNonTerminal[43], "arthmetic_exp");
+    strcpy(enumToNonTerminal[44], "n4");
+    strcpy(enumToNonTerminal[45], "term");
+    strcpy(enumToNonTerminal[46], "n5");
+    strcpy(enumToNonTerminal[47], "factor");
+    strcpy(enumToNonTerminal[48], "n11");
+    strcpy(enumToNonTerminal[49], "element_index_with_exp");
+    strcpy(enumToNonTerminal[50], "arr_exp");
+    strcpy(enumToNonTerminal[51], "arr_n4");
+    strcpy(enumToNonTerminal[52], "arr_term");
+    strcpy(enumToNonTerminal[53], "arr_n5");
+    strcpy(enumToNonTerminal[54], "arr_factor");
+    strcpy(enumToNonTerminal[55], "op1");
+    strcpy(enumToNonTerminal[56], "op2");
+    strcpy(enumToNonTerminal[57], "logical_op");
+    strcpy(enumToNonTerminal[58], "relational_op");
+    strcpy(enumToNonTerminal[59], "declare_stmt");
+    strcpy(enumToNonTerminal[60], "conditional_stmt");
+    strcpy(enumToNonTerminal[61], "case_stmts");
+    strcpy(enumToNonTerminal[62], "n9");
+    strcpy(enumToNonTerminal[63], "value");
+    strcpy(enumToNonTerminal[64], "default1");
+    strcpy(enumToNonTerminal[65], "iterative_stmt");
+    strcpy(enumToNonTerminal[66], "range_for_loop");
+    strcpy(enumToNonTerminal[67], "index_for_loop");
+    strcpy(enumToNonTerminal[68], "new_index_for_loop");
+    strcpy(enumToNonTerminal[69], "sign_for_loop");
+
 }
 
 void fillBuffer()
