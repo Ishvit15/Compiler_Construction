@@ -28,8 +28,9 @@ typedef enum
     statement,
     io_stmt,
     bool_const,
-    id_num_rnum,
-    array_element_for_print,
+    n11,
+    // id_num_rnum,
+    // array_element_for_print,
     var_print,
     p1,
     simple_stmt,
@@ -39,7 +40,6 @@ typedef enum
     lvalue_arr_stmt,
     index_arr,
     new_index,
-    indexs,
     sign,
     module_reuse_stmt,
     optional,
@@ -58,7 +58,6 @@ typedef enum
     term,
     n5,
     factor,
-    n11,
     element_index_with_exp,
     arr_exp,
     arr_n4,
@@ -111,10 +110,10 @@ typedef struct rhsOfGrammarRuleNode
 // int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
 
 bool firstSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
-bool followSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+Set followSet[NON_TERMINALS_COUNT];
 
 rhsOfGrammarRuleNode **rules;
 
-int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT]; // Not considering $
+int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT-1]; // Not considering $ & EPSILON
 
 void populateGrammar();

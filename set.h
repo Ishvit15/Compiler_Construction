@@ -1,13 +1,16 @@
 #include <stdbool.h>
+#define MAX_SET_SIZE 100
 
-// bool set[TERMINALS_COUNT];
+typedef bool * Set;
 
-void initializeSet(bool *s);
+void initializeSet(Set s);
 
-void addToSet(bool *s, int element);
+void addToSet(Set s, int element);
 
-void deleteFromSet(bool *s, int element);
+void deleteFromSet(Set s, int element);
 
-bool findElementInSet(bool s[], int element);
+bool findElementInSet(Set s, int element);
 
-void unionOfSets(bool *resultantSet, bool *s1, bool *s2);
+void unionOfSets(Set resultantSet, Set s1, Set s2);
+
+bool checkIfEqual(Set s1, Set s2);

@@ -1,26 +1,38 @@
 #include "set.h";
-#include "lexerDef.h"
 
-void initializeSet(bool *s) {
-    for(int i=0; i<TERMINALS_COUNT; i++){
-        s[i]=FALSE;
-    }
+void initializeSet(Set s)
+{
+    for (int i = 0; i < MAX_SET_SIZE; i++)
+        s[i] = 0;
 }
 
-void addToSet(bool *s, int element) {
-    s[element] = TRUE;
+void addToSet(Set s, int element)
+{
+    s[element] = 1;
 }
 
-void deleteFromSet(bool *s, int element) {
-    s[element]=FALSE;
+void deleteFromSet(Set s, int element)
+{
+    s[element] = 0;
 }
 
-bool findElementInSet(bool s[], int element) {
+bool findElementInSet(Set s, int element)
+{
     return s[element];
 }
 
-void unionOfSets(bool *resultantSet, bool *s1, bool *s2) {
-    for(int i=0; i<TERMINALS_COUNT; i++){
+void unionOfSets(Set resultantSet, Set s1, Set s2)
+{
+    for (int i = 0; i < MAX_SET_SIZE; i++)
         resultantSet[i] = s1[i] || s2[i];
+}
+
+bool checkIfEqual(Set s1, Set s2)
+{
+    for (int i = 0; i < MAX_SET_SIZE; i++)
+    {
+        if (s1[i] != s2[i])
+            return false;
     }
+    return true;
 }

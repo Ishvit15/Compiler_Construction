@@ -105,55 +105,55 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[17], "io_stmt");
     strcpy(enumToNonTerminal[18], "bool_const");
     strcpy(enumToNonTerminal[19], "n11");
-    strcpy(enumToNonTerminal[20], "actual_para_list");
-    strcpy(enumToNonTerminal[21], "var_print");
-    strcpy(enumToNonTerminal[22], "p1");
-    strcpy(enumToNonTerminal[23], "simple_stmt");
-    strcpy(enumToNonTerminal[24], "assignment_stmt");
-    strcpy(enumToNonTerminal[25], "which_stmt");
-    strcpy(enumToNonTerminal[26], "lvalue_id_stm");
-    strcpy(enumToNonTerminal[27], "lvalue_arr_stmt");
-    strcpy(enumToNonTerminal[28], "index_arr");
-    strcpy(enumToNonTerminal[29], "new_index");
-    strcpy(enumToNonTerminal[30], "sign");
-    strcpy(enumToNonTerminal[31], "module_reuse_stmt");
-    strcpy(enumToNonTerminal[32], "optional");
-    strcpy(enumToNonTerminal[33], "id_list");
-    strcpy(enumToNonTerminal[34], "n3");
-    strcpy(enumToNonTerminal[35], "expression");
-    strcpy(enumToNonTerminal[36], "u");
-    strcpy(enumToNonTerminal[37], "unary_op");
-    strcpy(enumToNonTerminal[38], "new_nt");
-    strcpy(enumToNonTerminal[39], "arithmetic_or_boolean_exp");
-    strcpy(enumToNonTerminal[40], "n7");
-    strcpy(enumToNonTerminal[41], "any_term");
-    strcpy(enumToNonTerminal[42], "n8");
-    strcpy(enumToNonTerminal[43], "arthmetic_exp");
-    strcpy(enumToNonTerminal[44], "n4");
-    strcpy(enumToNonTerminal[45], "term");
-    strcpy(enumToNonTerminal[46], "n5");
-    strcpy(enumToNonTerminal[47], "factor");
-    strcpy(enumToNonTerminal[48], "element_index_with_exp");
-    strcpy(enumToNonTerminal[49], "arr_exp");
-    strcpy(enumToNonTerminal[50], "arr_n4");
-    strcpy(enumToNonTerminal[51], "arr_term");
-    strcpy(enumToNonTerminal[52], "arr_n5");
-    strcpy(enumToNonTerminal[53], "arr_factor");
-    strcpy(enumToNonTerminal[54], "op1");
-    strcpy(enumToNonTerminal[55], "op2");
-    strcpy(enumToNonTerminal[56], "logical_op");
-    strcpy(enumToNonTerminal[57], "relational_op");
-    strcpy(enumToNonTerminal[58], "declare_stmt");
-    strcpy(enumToNonTerminal[59], "conditional_stmt");
-    strcpy(enumToNonTerminal[60], "case_stmts");
-    strcpy(enumToNonTerminal[61], "n9");
-    strcpy(enumToNonTerminal[62], "value");
-    strcpy(enumToNonTerminal[63], "default1");
-    strcpy(enumToNonTerminal[64], "iterative_stmt");
-    strcpy(enumToNonTerminal[65], "range_for_loop");
-    strcpy(enumToNonTerminal[66], "index_for_loop");
-    strcpy(enumToNonTerminal[67], "new_index_for_loop");
-    strcpy(enumToNonTerminal[68], "sign_for_loop");
+    //strcpy(enumToNonTerminal[20], "actual_para_list");
+    strcpy(enumToNonTerminal[20], "var_print");
+    strcpy(enumToNonTerminal[21], "p1");
+    strcpy(enumToNonTerminal[22], "simple_stmt");
+    strcpy(enumToNonTerminal[23], "assignment_stmt");
+    strcpy(enumToNonTerminal[24], "which_stmt");
+    strcpy(enumToNonTerminal[25], "lvalue_id_stm");
+    strcpy(enumToNonTerminal[26], "lvalue_arr_stmt");
+    strcpy(enumToNonTerminal[27], "index_arr");
+    strcpy(enumToNonTerminal[28], "new_index");
+    strcpy(enumToNonTerminal[29], "sign");
+    strcpy(enumToNonTerminal[30], "module_reuse_stmt");
+    strcpy(enumToNonTerminal[31], "optional");
+    strcpy(enumToNonTerminal[32], "id_list");
+    strcpy(enumToNonTerminal[33], "n3");
+    strcpy(enumToNonTerminal[34], "expression");
+    strcpy(enumToNonTerminal[35], "u");
+    strcpy(enumToNonTerminal[36], "unary_op");
+    strcpy(enumToNonTerminal[37], "new_nt");
+    strcpy(enumToNonTerminal[38], "arithmetic_or_boolean_exp");
+    strcpy(enumToNonTerminal[39], "n7");
+    strcpy(enumToNonTerminal[40], "any_term");
+    strcpy(enumToNonTerminal[41], "n8");
+    strcpy(enumToNonTerminal[42], "arthmetic_exp");
+    strcpy(enumToNonTerminal[43], "n4");
+    strcpy(enumToNonTerminal[44], "term");
+    strcpy(enumToNonTerminal[45], "n5");
+    strcpy(enumToNonTerminal[46], "factor");
+    strcpy(enumToNonTerminal[47], "element_index_with_exp");
+    strcpy(enumToNonTerminal[48], "arr_exp");
+    strcpy(enumToNonTerminal[49], "arr_n4");
+    strcpy(enumToNonTerminal[50], "arr_term");
+    strcpy(enumToNonTerminal[51], "arr_n5");
+    strcpy(enumToNonTerminal[52], "arr_factor");
+    strcpy(enumToNonTerminal[53], "op1");
+    strcpy(enumToNonTerminal[54], "op2");
+    strcpy(enumToNonTerminal[55], "logical_op");
+    strcpy(enumToNonTerminal[56], "relational_op");
+    strcpy(enumToNonTerminal[57], "declare_stmt");
+    strcpy(enumToNonTerminal[58], "conditional_stmt");
+    strcpy(enumToNonTerminal[59], "case_stmts");
+    strcpy(enumToNonTerminal[60], "n9");
+    strcpy(enumToNonTerminal[61], "value");
+    strcpy(enumToNonTerminal[62], "default1");
+    strcpy(enumToNonTerminal[63], "iterative_stmt");
+    strcpy(enumToNonTerminal[64], "range_for_loop");
+    strcpy(enumToNonTerminal[65], "index_for_loop");
+    strcpy(enumToNonTerminal[66], "new_index_for_loop");
+    strcpy(enumToNonTerminal[67], "sign_for_loop");
 }
 
 void fillBuffer()
@@ -650,7 +650,7 @@ TOKEN getNextToken()
                 }
                 else if (t == '.')
                 {
-                    c = getChar(0);
+                    // c = getChar(0);
                     dfaState = 3;
                 }
                 else
@@ -667,9 +667,9 @@ TOKEN getNextToken()
             if (t == '.')
             {
                 flag = 1;
-                // fwdPtr = fwdPtr -1;
-                // lx_ptr = lx_ptr -1;
-                // lexeme[lx_ptr] = '\0';
+                fwdPtr = fwdPtr -1;
+                lex_ptr = lex_ptr -1;
+                lexeme[lex_ptr] = '\0';
                 dfaState = 2;
             }
             else if (isdigit(t))
@@ -770,6 +770,20 @@ TOKEN getNextToken()
                 return tkn;
             }
             break;
+        
+        case 8:
+            t = getChar(1);
+            if(t=='.'){
+                getChar(0);
+                tkn.TK = RANGEOP;
+                strncpy(tkn.lexeme, "..", MAX_LEXEME_LENGTH);
+                beginPtr = fwdPtr;
+                dfaState = 0;
+                return tkn;
+            }
+            else{
+                dfaState = 38;
+            }
         
         case 22:
             c = getChar(0);
