@@ -445,9 +445,123 @@ void printFirstSets()
     }
 }
 
+void generateFollowSet()
+{
+    for (int i = 0; i < NON_TERMINALS_COUNT; i++)
+    {
+        followSet[i] = (Set)malloc(MAX_SET_SIZE * sizeof(bool));
+        initializeSet(followSet[i]);
+    }
+    for (int i = 0; i < NON_TERMINALS_COUNT; i++)
+    {
+        for(int j = 0; j < MAX_SET_SIZE; j++)
+            printf("%d ", followSet[i][j]);
+        printf("%d\n",i);
+    }
+
+    printf("1\n");
+    bool change = true;
+    addToSet(followSet[PROGRAM], END_OF_FILE);
+    printf("2\n");
+    while (change == true)
+    {
+        change = false;
+        for (int i = 0; i < TOTAL_RULES; i++)
+        {
+            rhsOfGrammarRuleNode *A = rules[i];
+            rhsOfGrammarRuleNode *t = rules[i]->next;
+            printf("3\n");
+            while (t != NULL)
+            {
+                if (t->symbol.tno == EPSILON) {
+                    // t = t->next;
+                    break;
+                }
+                while (t != NULL && t->symbol.isTerminal == true)
+                {
+                    t = t->next;
+                }
+                printf("4\n");
+                if (t == NULL)
+                    break;
+                Set new_foll = (Set)malloc(MAX_SET_SIZE*sizeof(bool));
+
+                if (t->next == NULL)
+                { // A -> aB
+                    unionOfSets(new_foll, new_foll, followSet[A->symbol.ntno]);
+                    break;
+                }
+                else
+                { // t->next !=NULL
+                    rhsOfGrammarRuleNode *t1 = t->next;
+
+                    while (t1 != NULL)
+                    {
+                        printf("!!!\n");
+                        if (t1->symbol.isTerminal == true)
+                        {
+                            addToSet(new_foll, t1->symbol.tno);
+                            break;
+                        }
+                        else
+                        {
+                            // t1 is a non-terminal
+                            if (findElementInSet(firstSet[t1->symbol.ntno], EPSILON) == false)
+                            {
+                                unionOfSets(new_foll, new_foll, firstSet[t1->symbol.ntno]);
+                                // t1 = t1->next;
+                                break;
+                            }
+                            else
+                            {
+                                // t1 has EPSILON
+                                unionOfSets(new_foll, new_foll, firstSet[t1->symbol.ntno]);
+                                deleteFromSet(new_foll, EPSILON);
+
+                                if (t1->next == NULL)
+                                {
+                                    unionOfSets(new_foll, new_foll, followSet[A->symbol.ntno]);
+                                    // t1 = t1->next;
+                                    break;
+                                }
+                                else
+                                {
+                                    // t1->next != NULL
+                                    t1 = t1->next;
+                                }
+                            }
+                        }
+                    }
+                }
+                Set temp = (Set)malloc(MAX_SET_SIZE * sizeof(bool));
+                initializeSet(temp);
+                unionOfSets(temp, temp, followSet[t->symbol.ntno]);
+                unionOfSets(temp, temp, new_foll);
+                if (checkIfEqual(temp, followSet[t->symbol.ntno])==false)
+                {
+                    change = true;
+                }
+                
+                unionOfSets(followSet[t->symbol.ntno], followSet[t->symbol.ntno], new_foll);
+
+                t = t->next;
+            }
+        }
+    }
+}
 
 
- 
+void printFollowSet(int i){
+    //printf("0\n");
+    for(int j = 0; j < TERMINALS_COUNT; j++)
+        if(followSet[i][j])
+            printf("%s ,", enumToTerminal[j]);
+    printf("\n");
+}
+
+
+
+
 
 
 /*
@@ -489,9 +603,11 @@ void createPT()
         bool tempFollowSet[TERMINALS_COUNT] = {false};
         bool tempFirstSet[TERMINALS_COUNT] = {false};
         // if rhsSym is epsilon
-        if ((rhsSym.isTerminal) && (rhsSym.tno == 60))
+        if ((rhsSym.isTerminal) && (rhsSym.tno == EPSILON))
         {                                                         // check if the value is 60 for epsilon
             //tempFollowSet[TERMINALS_COUNT] = followSet[lhs.ntno]; // check this
+            for(int k = 0; k < TERMINALS_COUNT; k++)
+                tempFollowSet[k] = followSet[lhs.ntno][k];
             epsilonFlag = true;
         }
         // else
@@ -502,11 +618,14 @@ void createPT()
             // tempFirstSet[TERMINALS_COUNT] = firstSet[lhs.ntno];
         }
         if (epsilonFlag)
+
         {
+            //printf("Yes\n");
             for (int j = 0; j < TERMINALS_COUNT - 1; j++)
             {
                 if (tempFollowSet[j])
                 {
+                    //printf("yup\n");
                     pt[lhs.ntno][j] = i;
                 }
             }
@@ -523,12 +642,12 @@ void createPT()
 
 
     //printing the PT
-    for(int i = 0; i < NON_TERMINALS_COUNT; i++){
-        for(int j = 0; j < TERMINALS_COUNT - 1; j++){
-            printf("%d ", pt[i][j]);
-        }
-        printf("\n");
-    }
+    // for(int i = 0; i < NON_TERMINALS_COUNT; i++){
+    //     for(int j = 0; j < TERMINALS_COUNT - 1; j++){
+    //         printf("%d ", pt[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 }
 
 int main()
@@ -563,7 +682,13 @@ int main()
     // }
 
     generateFirstSets();
-    //printFirstSets();
+    generateFollowSet();
+        // printFirstSets();
+        
+    int index;
+//     printf("Enter index:\n");
+//     scanf("%d", &index);
+//     printFollowSet(index);
     createPT();
     return 0;
 }
