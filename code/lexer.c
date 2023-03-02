@@ -908,3 +908,83 @@ void getStream()
         lex_ptr = 0;
     }
 }
+
+void removeComment(char *testcaseFile, char *cleanFile)
+{
+    FILE *ncfp = fopen(testcaseFile,"r");
+    FILE *cfpt = fopen(cleanFile, "w");
+    if(cfpt == NULL)
+        printf("Error");
+    
+    if(ncfp==NULL)
+    {
+        printf("File cannot be openned.");
+        exit(1);
+    }
+    else
+        printf("File openned"); 
+    // checked if the files are openned or not
+
+    char a;
+    int flag =0;
+    while((a=getc(ncfp))!= EOF)
+    {
+        if(flag == 0)
+        {
+            if(a != '*')
+            {
+                fprintf(cfpt, "%c", a);
+                continue;
+            }
+            else
+            {
+                flag =1;
+                continue;
+            }   
+        }
+        else if(flag == 1)
+        {
+            if(a!='*')
+            {
+                fprintf(cfpt, "%c", '*');
+                fprintf(cfpt, "%c", a);
+                flag =0;
+                continue;
+            }
+            else{
+                flag = 2;
+                continue;
+            }
+        }
+        else if(flag == 2)
+        {
+            if(a!='*')
+            {
+                if(a == "\n")
+                    fprintf(cfpt, "%c", a);
+                continue;
+
+            }
+            else    
+            {
+                flag = 3;
+                continue;
+            }
+        }
+        else if(flag==3)
+        {
+            if(a!='*')
+            {
+                flag =2;
+                continue;
+            }
+            else
+            {
+                flag = 0;
+                continue;
+            }
+        }
+    }
+    fclose(ncfp);
+    fclose(cfpt);
+}
