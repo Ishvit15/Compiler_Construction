@@ -640,6 +640,7 @@ TOKEN getNextToken()
             }
             else
             {
+                getChar(0);//By ME$
                 t = getChar(1);
                 // fwdPtr = fwdPtr -1;
                 if (isdigit(t))
@@ -649,7 +650,7 @@ TOKEN getNextToken()
                 }
                 else if (t == '.')
                 {
-                    c = getChar(0);
+                    // c = getChar(0);
                     dfaState = 3;
                 }
                 else
@@ -666,9 +667,9 @@ TOKEN getNextToken()
             if (t == '.')
             {
                 flag = 1;
-                // fwdPtr = fwdPtr -1;
-                // lx_ptr = lx_ptr -1;
-                // lexeme[lx_ptr] = '\0';
+                fwdPtr = fwdPtr -1;
+                lex_ptr = lex_ptr -1;
+                lexeme[lex_ptr] = '\0';
                 dfaState = 2;
             }
             else if (isdigit(t))
@@ -770,6 +771,20 @@ TOKEN getNextToken()
             }
             break;
         
+        case 8:
+            t = getChar(1);
+            if(t=='.'){
+                getChar(0);
+                tkn.TK = RANGEOP;
+                strncpy(tkn.lexeme, "..", MAX_LEXEME_LENGTH);
+                beginPtr = fwdPtr;
+                dfaState = 0;
+                return tkn;
+            }
+            else{
+                dfaState = 38;
+            }
+        
         case 22:
             c = getChar(0);
             if (c == '*')
@@ -861,7 +876,6 @@ TOKEN getNextToken()
     }
     return tkn;
 }
-
 void getStream()
 {
     //printf("1\n");
