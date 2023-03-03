@@ -114,7 +114,6 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[17], "io_stmt");
     strcpy(enumToNonTerminal[18], "bool_const");
     strcpy(enumToNonTerminal[19], "n11");
-    //strcpy(enumToNonTerminal[20], "actual_para_list");
     strcpy(enumToNonTerminal[20], "var_print");
     strcpy(enumToNonTerminal[21], "p1");
     strcpy(enumToNonTerminal[22], "simple_stmt");
@@ -163,6 +162,9 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[65], "index_for_loop");
     strcpy(enumToNonTerminal[66], "new_index_for_loop");
     strcpy(enumToNonTerminal[67], "sign_for_loop");
+    strcpy(enumToNonTerminal[68], "actual_para_list");
+    strcpy(enumToNonTerminal[69], "k");
+    strcpy(enumToNonTerminal[70], "new_act");
 }
 
 void fillBuffer()
