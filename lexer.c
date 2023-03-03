@@ -154,6 +154,9 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[65], "index_for_loop");
     strcpy(enumToNonTerminal[66], "new_index_for_loop");
     strcpy(enumToNonTerminal[67], "sign_for_loop");
+    strcpy(enumToNonTerminal[68], "actual_para_list");
+    strcpy(enumToNonTerminal[69], "k");
+    strcpy(enumToNonTerminal[70], "new_act");
 }
 
 void fillBuffer()
@@ -678,7 +681,13 @@ TOKEN getNextToken()
                 // }
 
                 else
-                {
+                {   
+                    t = getChar(1);
+                    if(t=='.'){
+                        c = getChar(0);
+                        dfaState =3;
+                        break;
+                    }
                     getChar(0); // By ME$
                     t = getChar(1);
                     // fwdPtr = fwdPtr -1;
