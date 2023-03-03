@@ -1,13 +1,25 @@
+/* 
+GROUP NO. 19
+ID: 2019B3A70545P  Name: ANIMESH BHARGAVA 
+ID: 2019B5A70226P  Name: ISHVIT BHASIN 
+ID: 2019B2A70878P  Name: RITIK THAKUR 
+ID: 2019B3A70154P  Name: SAHIL GUPTA
+ID: 2019B4A70704P  Name: UTKARSH YASHVARDHAN
+*/
+
 #include "lexerDef.h"
-#include "driver.h"
+// #include "driver.h"
 #include "set.h"
 #include <stdio.h>
-#define TOTAL_RULES 141
+#include <stdbool.h>
 #define NO_MATCH -1
 
-typedef enum {
+int TOTAL_RULES;
+
+typedef enum
+{
     program,
-    module_declerations, 
+    module_declerations,
     module_decleration,
     other_modules,
     driver_module,
@@ -36,7 +48,7 @@ typedef enum {
     lvalue_arr_stmt,
     index_arr,
     new_index,
-    index,
+    indexs,
     sign,
     module_reuse_stmt,
     optional,
@@ -54,8 +66,6 @@ typedef enum {
     n4,
     term,
     n5,
-    factor,
-    array_element,
     factor,
     n11,
     element_index_with_exp,
@@ -81,28 +91,39 @@ typedef enum {
     sign_for_loop
 } nonTerminalNo;
 
-typedef struct grammarSymbol {
+typedef struct grammarSymbol
+{
     bool isTerminal;
-    union {
+    union
+    {
         Name tno;
         nonTerminalNo ntno;
     };
 } grammarSymbol;
 
-typedef struct {
-    nonTerminalNo lhsSymbol;
-    rhsOfGrammarRuleNode* head;
-    rhsOfGrammarRuleNode* tail;
-} grammarRule;
+// typedef struct
+// {
+//     /*nonTerminalNo lhsSymbol;*/
+//     rhsOfGrammarRuleNode *head;
+//     /*rhsOfGrammarRuleNode* tail;*/
+// } grammarRule;
 
-typedef struct {
+typedef struct rhsOfGrammarRuleNode
+{
     grammarSymbol symbol;
-    rhsOfGrammarRuleNode* next;
+    struct rhsOfGrammarRuleNode *next;
 } rhsOfGrammarRuleNode;
 
-grammarRule grammar[TOTAL_RULES];
 
-int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+//     grammarRule grammar[TOTAL_RULES];
 
-Set firstSet[NON_TERMINALS_COUNT];
-Set followSet[NON_TERMINALS_COUNT];
+// int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+
+bool firstSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+bool followSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+
+rhsOfGrammarRuleNode **rules;
+
+int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT]; // Not considering $
+
+void populateGrammar();
