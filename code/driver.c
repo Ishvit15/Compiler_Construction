@@ -72,8 +72,8 @@ int main(int argc, char *argv[])
             exit(0);
             break;
         case 1: 
-            FILE *newFile;
-            removeComment(fp, newFile);
+            char *newFile;
+            removeComment(argv[1], newFile);
             printf("New file has been created (named cleanFile) after removing the comments from given file.\n");
             break;
         case 2:
