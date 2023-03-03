@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
             exit(0);
             break;
         case 1: 
-            char *newFile;
+            char *newFile = "cleanFile.txt";
             removeComment(argv[1], newFile);
             printf("New file has been created (named cleanFile) after removing the comments from given file.\n");
             break;
@@ -81,26 +81,28 @@ int main(int argc, char *argv[])
             getStream();
             break;
         case 3:
-            populateGrammar();
+            initLex(fp, len);
+            initParser();
+            //populateGrammar();
             // ////////need to add the parse tree print and stuff (UTKARSH's WORK)/////////
-            int me=1;
-            while(me!=0)
-            {
-                printf("Enter your choics to print : \n1. FIRST Set. \n2. FOLLOW SET \n0.EXIT \n");
-                scanf("%d", &me);
-                if(me == 1)
-                {  // PRINT FIRST SET 
-                    continue;
-                }
-                else if(me==2)
-                {// PRINT FOLLOW SET
-                    continue;
-                }
-                else if( me==0)
-                    continue;
-                else
-                    printf("Enter valid argument.");
-            }
+//             int me=1;
+//             while(me!=0)
+//             {
+//                 printf("Enter your choics to print : \n1. FIRST Set. \n2. FOLLOW SET \n0.EXIT \n");
+//                 scanf("%d", &me);
+//                 if(me == 1)
+//                 {  // PRINT FIRST SET 
+//                     continue;
+//                 }
+//                 else if(me==2)
+//                 {// PRINT FOLLOW SET
+//                     continue;
+//                 }
+//                 else if( me==0)
+//                     continue;
+//                 else
+//                     printf("Enter valid argument.");
+//             }
             break;
         case 4:
             startTime = clock();
