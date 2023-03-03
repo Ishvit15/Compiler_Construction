@@ -88,7 +88,10 @@ typedef enum
     range_for_loop,
     index_for_loop,
     new_index_for_loop,
-    sign_for_loop
+    sign_for_loop,
+    actual_para_list,
+    k,
+    new_act
 } nonTerminalNo;
 
 typedef struct grammarSymbol
