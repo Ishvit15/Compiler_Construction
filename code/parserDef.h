@@ -17,7 +17,7 @@ ID: 2019B4A70704P  Name: UTKARSH YASHVARDHAN
 int TOTAL_RULES;
 
 typedef enum
-{
+{ //// TAKE THIS FROM ANIMESH's SYSTEM
     program,
     module_declerations,
     module_decleration,
@@ -48,7 +48,6 @@ typedef enum
     lvalue_arr_stmt,
     index_arr,
     new_index,
-    indexs,
     sign,
     module_reuse_stmt,
     optional,
