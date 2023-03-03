@@ -106,11 +106,10 @@ int main(int argc, char *argv[])
             break;
         case 4:
             startTime = clock();
-            fillEnumToNonTerminal(fp);
-            fillEnumToTerminal(fp);
+            fillEnumToNonTerminal();
+            fillEnumToTerminal();
             initLex(fp, len);
-            getStream();
-            populateGrammar();
+            initParser();
             // NEED TO ADD ALL THE LEXER AND PARSER FUNCTIONANILTY
 
             endTime = clock();
