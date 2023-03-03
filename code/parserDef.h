@@ -1,12 +1,3 @@
-/* 
-GROUP NO. 19
-ID: 2019B3A70545P  Name: ANIMESH BHARGAVA 
-ID: 2019B5A70226P  Name: ISHVIT BHASIN 
-ID: 2019B2A70878P  Name: RITIK THAKUR 
-ID: 2019B3A70154P  Name: SAHIL GUPTA
-ID: 2019B4A70704P  Name: UTKARSH YASHVARDHAN
-*/
-
 #include "lexerDef.h"
 // #include "driver.h"
 #include "set.h"
@@ -17,7 +8,7 @@ ID: 2019B4A70704P  Name: UTKARSH YASHVARDHAN
 int TOTAL_RULES;
 
 typedef enum
-{ //// TAKE THIS FROM ANIMESH's SYSTEM
+{
     program,
     module_declerations,
     module_decleration,
@@ -37,8 +28,7 @@ typedef enum
     statement,
     io_stmt,
     bool_const,
-    id_num_rnum,
-    array_element_for_print,
+    n11,
     var_print,
     p1,
     simple_stmt,
@@ -66,7 +56,6 @@ typedef enum
     term,
     n5,
     factor,
-    n11,
     element_index_with_exp,
     arr_exp,
     arr_n4,
@@ -90,7 +79,7 @@ typedef enum
     sign_for_loop,
     actual_para_list,
     k,
-    new_act
+    nenw_act
 } nonTerminalNo;
 
 typedef struct grammarSymbol
@@ -122,10 +111,10 @@ typedef struct rhsOfGrammarRuleNode
 // int parseTable[NON_TERMINALS_COUNT][TERMINALS_COUNT];
 
 bool firstSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
-bool followSet[NON_TERMINALS_COUNT][TERMINALS_COUNT];
+Set followSet[NON_TERMINALS_COUNT];
 
 rhsOfGrammarRuleNode **rules;
 
-int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT]; // Not considering $
+int pt[NON_TERMINALS_COUNT][TERMINALS_COUNT-1]; // Not considering $ & EPSILON
 
 void populateGrammar();
