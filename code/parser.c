@@ -8,7 +8,7 @@ ID: 2019B4A70704P  Name: UTKARSH YASHVARDHAN
 */
 
 #include "parser.h";
-#include "parserDef.h"
+#include "parseDef.h"
 #include "tree.h"
 #include "stack.h"
 #include "lexer.h"
