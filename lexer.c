@@ -105,7 +105,7 @@ void fillEnumToNonTerminal()
     strcpy(enumToNonTerminal[17], "io_stmt");
     strcpy(enumToNonTerminal[18], "bool_const");
     strcpy(enumToNonTerminal[19], "n11");
-    //strcpy(enumToNonTerminal[20], "actual_para_list");
+    // strcpy(enumToNonTerminal[20], "actual_para_list");
     strcpy(enumToNonTerminal[20], "var_print");
     strcpy(enumToNonTerminal[21], "p1");
     strcpy(enumToNonTerminal[22], "simple_stmt");
@@ -181,6 +181,7 @@ void initLex(FILE *f, int len)
     beginPtr = 0;
     fwdPtr = 0;
     bufferRounds = 0;
+
     /*
     for (int i = 0; i < LOOKUP_TABLE_SIZE; i++)
     {
@@ -188,7 +189,7 @@ void initLex(FILE *f, int len)
         if (lookupTable[i].token != DUMMY)
             printf("%d@@@%s###%d\n", i, lookupTable[i].lexeme, lookupTable[i].token);
     }
-    
+
     printf("@@%d@@\n", search("integer"));
     printf("@@%d@@\n", search("real"));
     printf("@@%d@@\n", search("boolean"));
@@ -220,20 +221,17 @@ void initLex(FILE *f, int len)
     printf("@@%d@@\n", search("true"));
     printf("@@%d@@\n", search("false"));
 */
-   
 
     fillBuffer(fp);
 
-    
     // lookupTableRecord *lt;
 
     // lt = malloc(sizeof(lookupTableRecord) * LOOKUP_TABLE_SIZE);
-    
+
     initializeLookupTable(lookupTable);
-    
+
     generateLookupTable();
-    //printf("Yes\n");
-    
+    // printf("Yes\n");
 
     // for(int i = 0; i < 15; i++)
     //     printf("%c\n", getChar(0));
@@ -241,7 +239,7 @@ void initLex(FILE *f, int len)
 // Name stands for token name/type
 TOKEN getToken()
 {
-    //printf("4\n");
+    // printf("4\n");
     TOKEN _token;
     _token.line_no = lineNum;
     if (beginPtr == MAX_BUFFER_SIZE)
@@ -253,21 +251,22 @@ TOKEN getToken()
         strncpy(_token.lexeme, "lexeme size of ID has exceeded 20\n", MAX_BUFFER_SIZE);
 
     } // return ERROR TOKEN : Lexeme Length exceeding MAX_LEXEME_LENGTH
-    //printf("5\n");
+    // printf("5\n");
     lexeme[lex_ptr] = '\0'; // Do we really need to do this?
 
     if (dfaState == 0 || dfaState == 1)
     {
-        //printf("%s\n", lexeme);
+        // printf("%s\n", lexeme);
         Name TK = search(lexeme);
-        //printf("Search complete\n");
-        
-        if (TK == DUMMY){
-           // printf("Yes ID\n");
+        // printf("Search complete\n");
+
+        if (TK == DUMMY)
+        {
+            // printf("Yes ID\n");
             TK = ID;
         }
         _token.TK = TK;
-        //printf("%s\n", TK);
+        // printf("%s\n", TK);
         strcpy(_token.lexeme, lexeme);
         return _token;
     }
@@ -277,7 +276,7 @@ TOKEN getToken()
         _token.value_if_int = atoi(lexeme);
         return _token;
     }
-    else if (dfaState == 4)
+    else if (dfaState == 4) // CHANGE!!
     {
         _token.TK = RNUM;
         _token.value_if_float = atof(lexeme);
@@ -304,7 +303,7 @@ char getChar(int add)
         fwdPtr = (fwdPtr + 1) % buflen;
     }
 
-    if(add == 2)
+    if (add == 2)
         fwdPtr = (fwdPtr + 1) % buflen;
     return c;
 }
@@ -324,22 +323,23 @@ TOKEN getNextToken()
         case 0:
             c = getChar(0);
 
-            //printf("\nChar = %c\n",c);
-            
+            // printf("\nChar = %c\n",c);
+
             if (c == '.')
             {
                 dfaState = 8;
             }
 
-            //printf("c\n");
-            
+            // printf("c\n");
+
             else if (c == '_' || isalpha(c))
             {
-                //printf("c\n");
+                // printf("c\n");
                 t = getChar(1);
-                //printf("Char is %c\n", t);
-                if (!isalpha(c) && !isdigit(c) && t != '_')
+
+                if (!isalpha(t) && !isdigit(t) && t != '_')
                 {
+                    // printf("%c\n", t);
                     tkn = getToken();
                     dfaState = 0;
                     beginPtr = fwdPtr;
@@ -355,18 +355,29 @@ TOKEN getNextToken()
                 t = getChar(1);
                 if (t != '.' && !isdigit(t))
                 {
+                    // printf("Here\n");
                     tkn.TK = NUM;
                     tkn.value_if_int = c - '0';
-                    //printf("%d\n", tkn.value_if_int);
+                    // printf("%d\n", tkn.value_if_int);
                     beginPtr = fwdPtr;
                     dfaState = 0;
                     return tkn;
                 }
                 else
                 {
+
                     dfaState = 2;
                 }
             }
+            // //*****
+            // else if(c == '.'){
+            //     getChar(0);
+            //     dfaState = 8;
+            // }
+
+            // //*****
+
+
             else if (c == ';')
             {
 
@@ -418,13 +429,13 @@ TOKEN getNextToken()
             }
             else if (c == EOF)
             {
-                
+
                 tkn.TK = END_OF_FILE;
                 strncpy(tkn.lexeme, "EOF", MAX_LEXEME_LENGTH);
-                
+
                 beginPtr = fwdPtr;
                 dfaState = 0;
-                //exit(0);
+                // exit(0);
                 return tkn;
             }
             else if (c == '\t' || c == ' ')
@@ -432,7 +443,8 @@ TOKEN getNextToken()
                 memset(lexeme, '\0', sizeof(lexeme));
                 lex_ptr = 0;
                 // printf("a\n");
-                while(getChar(1)==' ' || getChar(1)=='\t'){
+                while (getChar(1) == ' ' || getChar(1) == '\t')
+                {
                     // printf("b\n");
                     getChar(2);
                 }
@@ -451,7 +463,6 @@ TOKEN getNextToken()
                     lineNum = lineNum + 1;
                 }
                 dfaState = 0;
-                
             }
             else if (c == '+')
             {
@@ -498,7 +509,8 @@ TOKEN getNextToken()
             {
                 t = getChar(1);
                 if (t == '=')
-                {   getChar(0);
+                {
+                    getChar(0);
                     tkn.TK = LE;
                     strncpy(tkn.lexeme, "<=", MAX_LEXEME_LENGTH);
                     beginPtr = fwdPtr;
@@ -506,10 +518,12 @@ TOKEN getNextToken()
                     return tkn;
                 }
                 else if (t == '<')
-                {   getChar(0);
+                {
+                    getChar(0);
                     t = getChar(1);
                     if (t == '<')
-                    {   getChar(0);
+                    {
+                        getChar(0);
                         tkn.TK = DRIVERDEF;
                         strncpy(tkn.lexeme, "<<<", MAX_LEXEME_LENGTH);
                         beginPtr = fwdPtr;
@@ -610,108 +624,178 @@ TOKEN getNextToken()
 
         case 1:
             t = getChar(1);
-            
+
             // fwdPtr = fwdPtr -1;
+            if(lex_ptr ==20){
+                while (isalpha(t) || isdigit(t) || t == '_'){
+                    getChar(2);
+                    t= getChar(1);
+                }
+                memset(lexeme, '\0', sizeof(lexeme));
+                lex_ptr=0;
+                tkn.TK = LEX_ERROR_1;
+                strncpy(tkn.lexeme, "id length exceeded", MAX_LEXEME_LENGTH);
+                beginPtr = fwdPtr;
+                dfaState =0;
+                return tkn;
+            }
             if (isalpha(t) || isdigit(t) || t == '_')
             {
-                //printf("Char = %c\n", t);
+                // printf("Char = %c\n", t);
                 getChar(0);
                 dfaState = 1;
             }
             else
             {
-                //printf("Reach\n");
+                // printf("Reach\n");
                 tkn = getToken();
-                //printf("Token: %s %d\n", tkn.lexeme, tkn.TK);
+                // printf("Token: %s %d\n", tkn.lexeme, tkn.TK);
                 beginPtr = fwdPtr;
                 dfaState = 0;
                 return tkn;
             }
             break;
 
-        case 2:
-            if (flag == 1)
-            {
-                tkn = getToken();
-                beginPtr = fwdPtr;
-                dfaState = 0;
-                flag = 0;
-                return tkn;
-            }
-            else
-            {
-                getChar(0);//By ME$
+            // ******************* Some modification ***************
+        //     // *******************************************************
+
+            case 2:
+                if (flag == 1)
+                {
+                    tkn = getToken();
+                    beginPtr = fwdPtr;
+                    dfaState = 0;
+                    flag = 0;
+                    return tkn;
+                }
+
+                //t = getChar(1);
+
+                // if (isdigit(t))
+                // {
+                //     getChar(0);
+                //     dfaState = 4;
+                // }
+
+                else
+                {
+                    getChar(0); // By ME$
+                    t = getChar(1);
+                    // fwdPtr = fwdPtr -1;
+                    if (isdigit(t))
+                    {
+                        // c = getChar(0);
+                        dfaState = 2;
+                    }
+                    else if (t == '.')
+                    {
+                        c = getChar(0);
+                        dfaState = 3;
+                    }
+                    else
+                    {
+                        tkn = getToken();
+                        beginPtr = fwdPtr;
+                        dfaState = 0;
+                        return tkn;
+                    }
+                }
+                break;
+            case 3:
+                t = getChar(1);
+                if (t == '.')
+                {
+                    flag = 1;
+                    fwdPtr = fwdPtr - 1; //(fwdPtr - 1 + buufflen) % bufflen
+                    lex_ptr = lex_ptr - 1;
+                    lexeme[lex_ptr] = '\0';
+                    dfaState = 2;
+                }
+                else if (isdigit(t))
+                {
+                    c = getChar(0);
+                    dfaState = 4;
+                }
+                else
+                {
+                    dfaState = 38; // trap dfaState
+                }
+                break;
+            case 4:
                 t = getChar(1);
                 // fwdPtr = fwdPtr -1;
                 if (isdigit(t))
                 {
+                    t = getChar(0);
+                    dfaState = 4;
+                }
+                else if (t == 'E' || t == 'e')
+                {
+                    t = getChar(0);
+                    dfaState = 5;
+                }
+                else
+                {
+                    tkn = getToken();
+                    beginPtr = fwdPtr;
+                    dfaState = 0;
+                    return tkn;
+                }
+                break;
+            case 5:
+                t = getChar(1);
+                if (t == '+' || t == '-')
+                {
                     c = getChar(0);
-                    dfaState = 2;
+                    dfaState = 6;
                 }
-                else if (t == '.')
+                else if (isdigit(t))
                 {
-                    // c = getChar(0);
-                    dfaState = 3;
+                    c = getChar(0);
+                    t = getChar(1);
+                    if (isdigit(t))
+                    {
+                        dfaState = 7;
+                    }
+                    else
+                    {
+                        tkn = getToken();
+                        beginPtr = fwdPtr;
+                        dfaState = 0;
+                        return tkn;
+                    }
                 }
                 else
                 {
-                    tkn = getToken();
-                    beginPtr = fwdPtr;
-                    dfaState = 0;
-                    return tkn;
+                    dfaState = 38; // trap dfaState
                 }
-            }
-            break;
-        case 3:
-            t = getChar(1);
-            if (t == '.')
-            {
-                flag = 1;
-                fwdPtr = fwdPtr -1;
-                lex_ptr = lex_ptr -1;
-                lexeme[lex_ptr] = '\0';
-                dfaState = 2;
-            }
-            else if (isdigit(t))
-            {
-                c = getChar(0);
-                dfaState = 4;
-            }
-            else
-            {
-                dfaState = 38; // trap dfaState
-            }
-            break;
-        case 4:
-            t = getChar(1);
-            // fwdPtr = fwdPtr -1;
-            if (isdigit(t))
-            {
-                t = getChar(0);
-                dfaState = 4;
-            }
-            else if (t == 'E' || t == 'e')
-            {
-                t = getChar(0);
-                dfaState = 5;
-            }
-            else
-            {
-                tkn = getToken();
-                beginPtr = fwdPtr;
-                dfaState = 0;
-                return tkn;
-            }
-            break;
-        case 5:
-            t = getChar(1);
-            if (t == '+' || t == '-')
-            {
-                c = getChar(0);
-                dfaState = 6;
-            }
-            else if (isdigit(t))
-            {
+                break;
+            case 6:
+                t = getChar(1);
+                if (isdigit(t))
+                {
+                    //dfaState = 9;
+                    c = getChar(0);
+                    t = getChar(1);
+                    // fwdPtr= fwdPtr -1;
+                    if (isdigit(t))
+                    {
+                        dfaState = 7;
+                    }
+                    else
+                    {
+                        tkn = getToken();
+                        beginPtr = fwdPtr;
+                        dfaState = 0;
+                        return tkn;
+                    }
+                }
+                else
+                {
+                    dfaState = 38; // trap dfaState
+                }
+                break;
+            case 7:
                 c = getChar(0);
                 t = getChar(1);
                 if (isdigit(t))
@@ -725,66 +809,41 @@ TOKEN getNextToken()
                     dfaState = 0;
                     return tkn;
                 }
-            }
-            else
-            {
-                dfaState = 38; // trap dfaState
-            }
-            break;
-        case 6:
-            t = getChar(1);
-            if (isdigit(t))
-            {
-                c = getChar(0);
+                break;
+
+            case 8:
                 t = getChar(1);
-                // fwdPtr= fwdPtr -1;
-                if (isdigit(t))
+                if (t == '.')
                 {
-                    dfaState = 7;
-                }
-                else
-                {
-                    tkn = getToken();
+                    getChar(0);
+                    tkn.TK = RANGEOP;
+                    strncpy(tkn.lexeme, "..", MAX_LEXEME_LENGTH);
                     beginPtr = fwdPtr;
                     dfaState = 0;
                     return tkn;
                 }
-            }
-            else
-            {
-                dfaState = 38; // trap dfaState
-            }
-            break;
-        case 7:
-            c = getChar(0);
-            t = getChar(1);
-            if (isdigit(t))
-            {
-                dfaState = 7;
-            }
-            else
-            {
-                tkn = getToken();
-                beginPtr = fwdPtr;
-                dfaState = 0;
-                return tkn;
-            }
-            break;
-        
-        case 8:
-            t = getChar(1);
-            if(t=='.'){
-                getChar(0);
-                tkn.TK = RANGEOP;
-                strncpy(tkn.lexeme, "..", MAX_LEXEME_LENGTH);
-                beginPtr = fwdPtr;
-                dfaState = 0;
-                return tkn;
-            }
-            else{
-                dfaState = 38;
-            }
-        
+                else
+                {
+                    dfaState = 38;
+                }
+                break;
+
+            // case 9:
+            //     c = getChar(0);
+            //     t = getChar(1);
+            //     // fwdPtr= fwdPtr -1;
+            //     if (isdigit(t))
+            //     {
+            //         dfaState = 9;
+            //     }
+            //     else
+            //     {
+            //         tkn = getToken();
+            //         beginPtr = fwdPtr;
+            //         dfaState = 0;
+            //         return tkn;
+            //     }
+
         case 22:
             c = getChar(0);
             if (c == '*')
@@ -864,8 +923,10 @@ TOKEN getNextToken()
             }
             break;
         case 38:
+            memset(lexeme, '\0', sizeof(lexeme));
+            lex_ptr = 0;
             tkn.TK = LEX_ERROR_2;
-            strncpy(tkn.lexeme, "transition not possible\n", MAX_LEXEME_LENGTH);
+            strncpy(tkn.lexeme, "invalid lexeme\n", MAX_LEXEME_LENGTH);
             beginPtr = fwdPtr;
             dfaState = 0;
             return tkn;
@@ -876,25 +937,25 @@ TOKEN getNextToken()
     }
     return tkn;
 }
-
 void getStream()
 {
-    //printf("1\n");
+    // printf("1\n");
     TOKEN token;
     while (1)
     {
         token = getNextToken(fp);
-        //printf("Getstream Token: %s %d\n", token.lexeme, token.TK);
-        //printf("2\n");
-        //printf("%s\n", enumToTerminal[token.TK]);
-        if (token.TK == END_OF_FILE){
-            //printf("Token- %s, Lexeme- %s (Line No. - %d)\n", enumToTerminal[token.TK], token.lexeme, token.line_no);
+        // printf("Getstream Token: %s %d\n", token.lexeme, token.TK);
+        // printf("2\n");
+        // printf("%s\n", enumToTerminal[token.TK]);
+        if (token.TK == END_OF_FILE)
+        {
+            // printf("Token- %s, Lexeme- %s (Line No. - %d)\n", enumToTerminal[token.TK], token.lexeme, token.line_no);
             break;
         }
-        else if (token.TK == LEX_ERROR_1)
-            printf("Identifier length is greater than 20 (Line No. - %d)\n", token.line_no);
-        else if (token.TK == LEX_ERROR_2)
-            printf("Unidentified token found :- %s (Line No. - %d)\n", token.lexeme, token.line_no);
+        // else if (token.TK == LEX_ERROR_1)
+        //     printf("Identifier length is greater than 20 (Line No. - %d)\n", token.line_no);
+        // else if (token.TK == LEX_ERROR_2)
+        //     printf("Unidentified token found :- %s (Line No. - %d)\n", token.lexeme, token.line_no);
         else
         {
             if (token.TK == NUM)
@@ -908,4 +969,84 @@ void getStream()
         memset(lexeme, '\0', sizeof(lexeme));
         lex_ptr = 0;
     }
+}
+
+void removeComment(char *testcaseFile, char *cleanFile)
+{
+    FILE *ncfp = fopen(testcaseFile, "r");
+    FILE *cfpt = fopen(cleanFile, "w");
+    if (cfpt == NULL)
+        printf("Error");
+
+    if (ncfp == NULL)
+    {
+        printf("File cannot be openned.");
+        exit(1);
+    }
+    else
+        printf("File openned");
+    // checked if the files are openned or not
+
+    char a;
+    int flag1 = 0;
+    while ((a = getc(ncfp)) != EOF)
+    {
+        if (flag1 == 0)
+        {
+            if (a != '*')
+            {
+                fprintf(cfpt, "%c", a);
+                continue;
+            }
+            else
+            {
+                flag1 = 1;
+                continue;
+            }
+        }
+        else if (flag1 == 1)
+        {
+            if (a != '*')
+            {
+                fprintf(cfpt, "%c", '*');
+                fprintf(cfpt, "%c", a);
+                flag1 = 0;
+                continue;
+            }
+            else
+            {
+                flag1 = 2;
+                continue;
+            }
+        }
+        else if (flag1 == 2)
+        {
+            if (a != '*')
+            {
+                if (a == "\n")
+                    fprintf(cfpt, "%c", a);
+                continue;
+            }
+            else
+            {
+                flag1 = 3;
+                continue;
+            }
+        }
+        else if (flag1 == 3)
+        {
+            if (a != '*')
+            {
+                flag1 = 2;
+                continue;
+            }
+            else
+            {
+                flag1 = 0;
+                continue;
+            }
+        }
+    }
+    fclose(ncfp);
+    fclose(cfpt);
 }
