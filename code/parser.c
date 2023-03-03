@@ -922,58 +922,13 @@ void printParseTree(treeNode* rootTreeNode) {
 
 
 
-int main()
-{
+void initParser(FILE *fp, int len){
     fillEnumToNonTerminal();
     fillEnumToTerminal();
+    initLex(fp, len);
     populateGrammar();
-    // for (int i = 0; i < TOTAL_RULES; i++){
-    //     printGrammar(rules[i]);
-    //     printf("\nFirst Set of rule %d is:\t", i);
-    //     bool *firstSetOfRhs = malloc(TERMINALS_COUNT * sizeof(bool));
-    //     firstSetOfRule(rules[i]->next, firstSetOfRhs);
-    //     for (int j = 0; j < TERMINALS_COUNT; j++)
-    //     {
-    //         if (firstSetOfRhs[j])
-    //         {
-    //             printf("%s ,", enumToTerminal[j]);
-    //         }
-    //     }
-    //     printf("\n");
-    // }
-    // printf("Enter rule number\n");
-    // scanf("%d", &rno);
-    // rhsOfGrammarRuleNode *n = rules[rno];
-    // //printf("1\n");
-    // while(n != NULL){
-    //     if(n->symbol.isTerminal)
-    //         printf("%s\n", enumToTerminal[n->symbol.tno]);
-    //     else
-    //         printf("%s\n", enumToNonTerminal[n->symbol.ntno]);
-    //     n=n->next;
-    // }
-
     generateFirstSets();
     generateFollowSet();
-
-    // printFirstSets();
-
-    // int index;
-    // printf("Enter index:\n");
-    // scanf("%d", &index);
-    // printFollowSet(program);
-    createPT();
-    printf("!!!!!@\n");
-
-    FILE* fp = fopen("testcase1.txt", "r+");
-    initLex(fp, 100000);
-    // getStream();
-
-    treeNode* root = parseUserSourceCode(fp);
-    printf("@@@@@\n");
-    printParseTree(root);
-    return 0;
 }
-
 
 
