@@ -57,7 +57,15 @@ new_index NUM
 sign PLUS
 sign MINUS
 sign EPSILON
-module_reuse_stmt optional USE MODULE ID WITH PARAMETERS id_list SEMICOL
+module_reuse_stmt optional USE MODULE ID WITH PARAMETERS actual_para_list SEMICOL
+acutal_para_list k new_act 
+actual_para_list sign k new_act
+new_act COMMA k new_act
+new_act EPSILON
+k NUM
+k RNUM
+k bool_const
+k ID n11
 optional SQBO id_list SQBC ASSIGNOP
 optional EPSILON
 id_list ID n3
