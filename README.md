@@ -9,6 +9,3 @@ The language supports features such as
 - Returning multiple values from a function
 - Arithmetic and boolean expressions
 - Strongly typed language
-
-The language specifications can be found 
-(here)[]
