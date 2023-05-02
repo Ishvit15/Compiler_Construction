@@ -1,5 +1,12 @@
 # Compiler_Construction
 
+---
+## Authors
+- Animesh Bhargava (2019B3A70545P)
+- Sahil Gupta (2019B3A70154P)
+- Utkarsh Yashvardhan (2019B4A70704P)
+---
+
 The repository contains the compiler implementation for a custom language as a part of course work for CS F363 - Compiler Construction at BITS Pilani.
 
 The language supports features such as
