@@ -3,6 +3,8 @@
 ---
 ## Authors
 - Animesh Bhargava (2019B3A70545P)
+- Ishvit Bhasin (2019B5A70226P)
+- Ritik Thakur (2019B2A70878P)
 - Sahil Gupta (2019B3A70154P)
 - Utkarsh Yashvardhan (2019B4A70704P)
 ---
