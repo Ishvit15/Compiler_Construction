@@ -18,3 +18,5 @@ The language supports features such as
 - Returning multiple values from a function
 - Arithmetic and boolean expressions
 - Strongly typed language
+
+Details of the language are given [here](https://github.com/Ishvit15/Compiler_Construction/blob/main/language%20specifications.pdf).
